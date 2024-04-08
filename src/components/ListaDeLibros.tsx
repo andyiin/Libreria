@@ -1,5 +1,4 @@
-export default function ListaDeLibros(props: {libros: any[]}) {
-
+export default function ListaDeLibros(props: Readonly<{ libros: any[] }>) {
   return (
     <div>
       <h1>Listado de Libros</h1>
