@@ -1,12 +1,13 @@
 import React from "react";
-import ListaDeLibros from "../components/ListaDeLibros";
+import ListaDeLibros from "@/components/ListaDeLibros";
+import Encabezado from "@/components/Encabezado";
 import getDb from "@/lib/mongodb";
 
 const Page = async () => {
   const libros = await getLibros();
   return (
     <div>
-      <h1>Bienvenido a Nuestra Biblioteca</h1>
+      <Encabezado />
       <ListaDeLibros libros={libros} />
     </div>
   );
