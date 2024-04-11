@@ -6,5 +6,12 @@ export default interface Libro {
     price: Decimal128;
     description: string;
     author: string;
-    image: string
+    image: string;
+    categories: Array<string>;
+    editorial: string;
+    isbn: number;
+    language: string;
+    pages: number;
+    publication: number;
+    opinion: string;
 }
