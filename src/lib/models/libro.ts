@@ -12,6 +12,6 @@ export default interface Libro {
     isbn: number;
     language: string;
     pages: number;
-    publication: number;
+    publication: Date;
     opinion: string;
 }
