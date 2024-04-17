@@ -6,36 +6,44 @@ import Libro from "@/lib/models/libro";
 import Novedades from "@/components/Novedades";
 
 const Page = async () => {
-  const libros = await getLibros();
-  const novedad = await getNovedad();
+    const libros = await getLibros();
+    const novedades = await getNovedades();
 
-  return (
-    <div className="bg-zinc-300 text-black">
-      <Encabezado />
-      <Novedades libro={novedad} /> 
-      <ListaDeLibros libros={libros} />
-    </div>
-  );
+    return (
+        <div className="bg-zinc-900">
+            <Encabezado />
+            <Novedades libros={novedades} />
+            <ListaDeLibros libros={libros} />
+        </div>
+    );
 };
 
 export default Page;
 
 async function getLibros() {
-  const db = await getDb();
+    const db = await getDb();
 
-  const libros = await db.collection<Libro>("products").find({}).toArray();
+    const libros = await db.collection<Libro>("products").find({}).toArray();
 
-  return libros;
+    return libros;
 }
 
-async function getNovedad() {
-  const db = await getDb();
+async function getNovedades() {
+    const db = await getDb();
+    const novedades = await db
+        .collection<Libro>("products")
+        .find({})
+        .sort({ publication: -1 })
+        .limit(3)
+        .toArray();
 
-  const novedad = await db.collection<Libro>("products")
-    .find({})
-    .sort({ publication: -1 })
-    .limit(1)
-    .toArray();
+    // Convierte cada libro a un formato serializable
+    const novedadesSerializables = novedades.map((libro) => ({
+        ...libro,
+        _id: libro._id.toString(),
+        price: libro.price.toString(),
+        publication: libro.publication.toISOString(),
+    }));
 
-  return novedad[0];
+    return novedadesSerializables;
 }

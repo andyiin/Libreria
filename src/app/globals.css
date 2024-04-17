@@ -54,7 +54,7 @@ body {
             rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
-/* Estilos personalizados */
+/* Estilos personalizados
 .clip-trapecio::before {
     content: "";
     position: absolute;
@@ -64,7 +64,7 @@ body {
     left: 0;
     background: url('/img/imgTest.jpg') no-repeat center/cover;
     clip-path: polygon(65% 0, 100% 0, 100% 100%, 35% 100%);
-}
+} */
 
 @layer utilities {
     .text-balance {
