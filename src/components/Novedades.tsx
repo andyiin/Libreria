@@ -46,7 +46,7 @@ const Novedades = ({ libros }: { libros: any[] }) => {
 
     return (
         <div className="flex justify-center items-center h-50vh p-10">
-            <button onClick={libroAnterior}>←</button>
+            <button className="text-5xl" onClick={libroAnterior}>⪻</button>
             <div className="bg-zinc-900 text-zinc-200 p-10 w-2/3 h-96 shadow-lg rounded-lg overflow-hidden">
                 <div className="flex flex-col md:flex-row justify-between items-center h-full">
                     <div className="w-2/3 mb-4 md:mb-0 flex flex-col justify-between">
@@ -69,7 +69,7 @@ const Novedades = ({ libros }: { libros: any[] }) => {
                     </div>
                 </div>
             </div>
-            <button onClick={siguienteLibro}>→</button>
+            <button className="text-5xl" onClick={siguienteLibro}>⪼</button>
         </div>
     );
 };
