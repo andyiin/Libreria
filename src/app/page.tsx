@@ -3,30 +3,18 @@ import ListaDeLibros from "@/components/ListaDeLibros";
 import Encabezado from "@/components/Encabezado";
 import getDb from "@/lib/mongodb";
 import Libro from "@/lib/models/libro";
+import { retrieve } from "@/lib/auth";
 import Novedades from "@/components/Novedades";
 
-const Page = async () => {
-    const libros = await getLibros();
-    const novedades = await getNovedades();
-
-    return (
-        <div className="bg-zinc-300 text-black">
-            <Encabezado />
-            <Novedades libros={novedades} />
-            <ListaDeLibros libros={libros} />
-        </div>
-    );
+async function getUser() {
+    return await retrieve("user");
 };
-
-export default Page;
 
 async function getLibros() {
     const db = await getDb();
-
     const libros = await db.collection<Libro>("products").find({}).toArray();
-
     return libros;
-}
+};
 
 async function getNovedades() {
     const db = await getDb();
@@ -46,4 +34,20 @@ async function getNovedades() {
     }));
 
     return novedadesSerializables;
-}
+};
+
+const Page = async () => {
+    const libros = await getLibros();
+    const novedades = await getNovedades();
+    const user = await getUser();
+
+    return (
+        <div className="bg-zinc-300 text-black">
+            <Encabezado user={user} />
+            <Novedades libros={novedades} />
+            <ListaDeLibros libros={libros} />
+        </div>
+    );
+};
+
+export default Page;

@@ -1,8 +1,22 @@
-export default function Encabezado() {
+import Link from "next/link";
+import Logout from "@/components/Logout";
+
+export default function Encabezado(props: { user: any }) {
     return (
-        <div className="encabezado">
+        <header>
             <h1 className="text-2xl">Librería</h1>
-            
-        </div>
+            {props.user && (
+                <>
+                    <h2><Link href="/dashboard">Dashboard</Link></h2>
+                    <Logout />
+                </>
+            )}
+            {!props.user && (
+                <>
+                    <h2><Link href="/login">Login</Link></h2>
+                    <h2><Link href="/register">Register</Link></h2>
+                </>
+            )}
+        </header>
     );
-}
+};
