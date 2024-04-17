@@ -3,7 +3,7 @@ import { WithId } from "mongodb";
 
 export default function LibroDetallado(props: { libro: WithId<LibroModel> }) {
     return (
-        <div className="flex flex-col md:flex-row text-zinc-900 p-5 w-2/3">
+        <div className="flex flex-col md:flex-row p-5 w-2/3">
             <div className="flex-none">
                 <img
                     src="/img/imgTest.jpg"
@@ -16,7 +16,7 @@ export default function LibroDetallado(props: { libro: WithId<LibroModel> }) {
                 <p className="text-l">{props.libro.author}</p>
                 <div className="flex flex-wrap mt-2">
                     {props.libro.categories.map((category, index) => (
-                        <span key={index} className="bg-blue-300 rounded-full px-4 py-1 mr-2 mb-2">
+                        <span key={index} className="bg-indigo-300 rounded-full px-4 py-1 mr-2 mb-2">
                             {category}
                         </span>
                     ))}

@@ -10,7 +10,7 @@ const Page = async () => {
   const novedad = await getNovedad();
 
   return (
-    <div className="bg-zinc-900">
+    <div className="bg-zinc-300 text-black">
       <Encabezado />
       <Novedades libro={novedad} /> 
       <ListaDeLibros libros={libros} />

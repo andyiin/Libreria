@@ -4,7 +4,7 @@ import { WithId } from "mongodb";
 
 export default function Libro(props: { libro: WithId<LibroModel> }) {
     return (
-        <li className="flex flex-col w-72 rounded-xl overflow-hidden bg-zinc-300 text-zinc-900">
+        <li className="bg-indigo-300 flex flex-col w-52 rounded-xl overflow-hidden">
             <div>
                 <Link href={`/vistaDetallada/${props.libro._id}`}>
                     <img
@@ -20,13 +20,13 @@ export default function Libro(props: { libro: WithId<LibroModel> }) {
                     <p>
                         <b>{props.libro.name}</b>
                     </p>
-                    <p className="text-xl">
+                    <p className="text-xl text-indigo-800">
                         <b>{props.libro.price.toString()}€</b>
                     </p>
                 </div>
                 <p className=" text-zinc-600">{props.libro.author}</p>
                 <div className="flex">
-                    <button className="px-3 py-0.5 bg-zinc-900 text-zinc-300">
+                    <button className="px-3 py-0.5 bg-indigo-800 text-zinc-300">
                         Añadir
                     </button>
                 </div>
