@@ -5,37 +5,51 @@ import { notFound } from "next/navigation";
 import LibroDetallado from "@/components/LibroDetallado";
 import AnnadirLibro from "@/components/AnnadirLibro";
 import FichaTecnica from "@/components/FichaTecnica";
+import ListaDeLibros from "@/components/ListaDeLibros";
 
 const Page = async ({ params }: { params: { id: string } }) => {
-    const libro = await getLibro(params.id);
+    const { libro, librosAutor } = await getLibroYLibrosAutor(params.id);
 
     if (!libro) {
         notFound();
     }
 
     return (
-        <div className="bg-zinc-300">
+        <div className="bg-zinc-300 text-black">
             <div className="flex">
                 {libro && <LibroDetallado libro={libro} />}
                 {libro && <AnnadirLibro libro={libro} />}
             </div>
             <div className="flex justify-center">{libro && <FichaTecnica libro={libro} />}</div>
+            <div>
+                <h2>Otros libros del autor</h2>
+                {librosAutor && <ListaDeLibros libros={librosAutor} />}
+            </div>
+
         </div>
     );
 };
 
 export default Page;
 
-async function getLibro(id: string) {
+async function getLibroYLibrosAutor(id: string) {
     try {
         const db = await getDb();
-
-        const libros = await db
+        const libro = await db
             .collection<Libro>("products")
             .findOne({ _id: new ObjectId(id) });
 
-        return libros;
+        if (!libro) {
+            return { libro: null, librosAutor: null };
+        }
+
+        const librosAutor = await db
+            .collection<Libro>("products")
+            .find({ author: libro.author, _id: { $ne: libro._id } })
+            .toArray();
+
+        return { libro, librosAutor };
     } catch {
-        return null;
+        return { libro: null, librosAutor: null };
     }
 }
