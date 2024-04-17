@@ -49,7 +49,9 @@ export async function store(sessionData: { mail: string, rol: string, active: bo
 export async function retrieve(name: string) {
     const cookie = cookies().get(name);
     if (!cookie) return false;
-    return await decrypt(JSON.parse(cookie.value));
+    
+    const parsedValue = JSON.parse(cookie.value);
+    return await decrypt(parsedValue);
 };
 
 /**
@@ -57,8 +59,5 @@ export async function retrieve(name: string) {
  * @param name - The name of the cookie to delete.
  */
 export async function deleteCookie(name: string) {
-    cookies().set(name, "", {
-        expires: new Date(0),
-        path: "/",
-    });
+    cookies().delete(name);
 };

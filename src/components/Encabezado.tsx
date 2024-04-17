@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logout from "@/components/Logout";
 
 export default function Encabezado(props: { user: any }) {
     return (
@@ -7,7 +8,7 @@ export default function Encabezado(props: { user: any }) {
             {props.user && (
                 <>
                     <h2><Link href="/dashboard">Dashboard</Link></h2>
-                    <h2><Link href="/logout">Logout</Link></h2>
+                    <Logout />
                 </>
             )}
             {!props.user && (

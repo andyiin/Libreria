@@ -1,4 +1,4 @@
-import login from "./login.tsx";
+import login from "./login";
 import { redirect } from "next/navigation";
 import Login from "@/components/Login";
 
