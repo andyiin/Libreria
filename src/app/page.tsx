@@ -1,9 +1,9 @@
 import React from "react";
-import ListaDeLibros from "@/components/ListaDeLibros";
 import Encabezado from "@/components/Encabezado";
 import getDb from "@/lib/mongodb";
 import Libro from "@/lib/models/libro";
 import { retrieve } from "@/lib/auth";
+import ListaDeLibros from "@/components/ListaDeLibros";
 import Novedades from "@/components/Novedades";
 
 async function getUser() {

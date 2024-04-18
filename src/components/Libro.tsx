@@ -6,7 +6,7 @@ export default function Libro(props: { libro: WithId<LibroModel> }) {
     return (
         <li className="bg-indigo-300 flex flex-col w-52 rounded-xl overflow-hidden">
             <div>
-                <Link href={`/vistaDetallada/${props.libro._id}`}>
+                <Link href={`/detail/${props.libro._id}`}>
                     <img
                         src="/img/imgTest.jpg"
                         alt=""
