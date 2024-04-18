@@ -1,4 +1,4 @@
-import register from "./register";
+import { register } from "@/app/(auth)/authentication";
 import { redirect } from "next/navigation";
 import Registro from "@/components/Registro"
 
@@ -22,9 +22,9 @@ export default function RegisterPage() {
         } catch (error) {
             console.error(error.message);
         }
-        if (auth) {
+
+        if (auth)
             redirect("/");
-        }
     };
 
     return (

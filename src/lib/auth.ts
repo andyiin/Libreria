@@ -50,8 +50,13 @@ export async function retrieve(name: string) {
     const cookie = cookies().get(name);
     if (!cookie) return false;
     
-    const parsedValue = JSON.parse(cookie.value);
-    return await decrypt(parsedValue);
+    try {
+        const parsedValue = JSON.parse(cookie.value);
+        return await decrypt(parsedValue);
+    } catch (error) {
+        console.error('Error parsing cookie value:', error);
+        return false;
+    }
 };
 
 /**
