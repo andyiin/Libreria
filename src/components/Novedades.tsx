@@ -155,7 +155,7 @@ const Novedades = ({ libros }: { libros: any[] }) => {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center min-h-screen p-2">
+        <div className="flex flex-col justify-center items-center min-h-[70vh] p-2">
             <h1 className="text-5xl text-indigo-800 font-bold mb-4 text-center animate-bounce">
                 Novedades!!
             </h1>
@@ -164,7 +164,7 @@ const Novedades = ({ libros }: { libros: any[] }) => {
                     className="absolute left-0 top-1/2 transform -translate-y-1/2 text-5xl text-white p-4"
                     onClick={libroAnterior}
                 >
-                    ⪻
+                    {"<"}-
                 </button>
                 <div className="flex flex-col md:flex-row items-center justify-center">
                     <div className="w-full md:w-1/3">
@@ -191,7 +191,7 @@ const Novedades = ({ libros }: { libros: any[] }) => {
                     className="absolute right-0 top-1/2 transform -translate-y-1/2 text-5xl text-white p-4"
                     onClick={siguienteLibro}
                 >
-                    ⪼
+                    -{">"}
                 </button>
             </div>
         </div>
