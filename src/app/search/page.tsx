@@ -12,6 +12,7 @@ async function getLibros(busqueda: string) {
                 { author: { $regex: busqueda, $options: "i" } },
             ],
         })
+        .sort({ publication: -1 })
         .toArray();
 
     return libros;

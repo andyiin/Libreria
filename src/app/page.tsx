@@ -6,9 +6,13 @@ import Novedades from "@/components/Novedades";
 
 async function getLibros() {
     const db = await getDb();
-    const libros = await db.collection<Libro>("products").find({}).toArray();
+    const libros = await db
+        .collection<Libro>("products")
+        .find({})
+        .sort({ publication: -1 })
+        .toArray();
     return libros;
-};
+}
 
 async function getNovedades() {
     const db = await getDb();
@@ -28,7 +32,7 @@ async function getNovedades() {
     }));
 
     return novedadesSerializables;
-};
+}
 
 const Page = async () => {
     const libros = await getLibros();

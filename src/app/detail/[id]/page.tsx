@@ -18,13 +18,14 @@ async function getLibroYLibrosAutor(id: string) {
         const librosAutor = await db
             .collection<Libro>("products")
             .find({ author: libro.author, _id: { $ne: libro._id } })
+            .sort({ publication: -1 })
             .toArray();
 
         return { libro, librosAutor };
     } catch {
         return { libro: null, librosAutor: null };
     }
-};
+}
 
 const Page = async ({ params }: { params: { id: string } }) => {
     const { libro, librosAutor } = await getLibroYLibrosAutor(params.id);
@@ -34,7 +35,11 @@ const Page = async ({ params }: { params: { id: string } }) => {
     }
 
     return (
-        <VistaDetallada id={params.id} libro={libro} librosAutor={librosAutor} />
+        <VistaDetallada
+            id={params.id}
+            libro={libro}
+            librosAutor={librosAutor}
+        />
     );
 };
 
