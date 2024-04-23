@@ -5,13 +5,13 @@ import Buscador from "@/components/Buscador";
 
 export default function Encabezado(props: { user: any }) {
     return (
-        <header className="flex items-center justify-between px-4 py-2 bg-gray-200">
+        <header className="flex items-center justify-between px-4 py-2 bg-gray-200 text-gray-800">
             <div>
                 <Link href="/">
-                    <h1 className="flex flex-row items-center text-2xl font-bold text-gray-800">
+                    <h1 className="flex flex-row items-center text-2xl font-bold">
                         Librería
                         <Image
-                            src="./home.svg"
+                            src="/home.svg"
                             alt="Logo"
                             width={65}
                             height={65}
