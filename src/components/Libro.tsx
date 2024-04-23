@@ -8,9 +8,9 @@ export default function Libro(props: { libro: WithId<LibroModel> }) {
             <div>
                 <Link href={`/detail/${props.libro._id}`}>
                     <img
-                        src="/img/imgTest.jpg"
-                        alt=""
-                        className="w-full flex-grow drop-shadow-2xl"
+                        src={`/img/${props.libro.image}`}
+                        alt={props.libro.name}
+                        className="w-full h-80 object-cover flex-grow drop-shadow-2xl"
                     />
                 </Link>
                 <br />
@@ -24,7 +24,7 @@ export default function Libro(props: { libro: WithId<LibroModel> }) {
                         <b>{props.libro.price.toString()}€</b>
                     </p>
                 </div>
-                <p className=" text-zinc-600">{props.libro.author}</p>
+                <p className="text-zinc-600">{props.libro.author}</p>
                 <div className="flex">
                     <button className="rounded px-3 py-0.5 bg-indigo-800 hover:bg-indigo-900 text-zinc-300 transition duration-300">
                         Añadir

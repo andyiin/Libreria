@@ -6,8 +6,8 @@ export default function LibroDetallado(props: { libro: WithId<LibroModel> }) {
         <div className="flex flex-col md:flex-row p-5 w-2/3">
             <div className="flex-none">
                 <img
-                    src="/img/imgTest.jpg"
-                    alt=""
+                    src={`/img/${props.libro.image}`}
+                    alt={props.libro.name}
                     className="w-72 h-auto drop-shadow-2xl"
                 />
             </div>
