@@ -38,7 +38,7 @@ const Novedades = ({ libros }: { libros: any[] }) => {
         );
 
     const libroActual = librosProcesados[indiceActual];
-    
+
     const siguienteLibro = () => {
         setIndiceActual(
             (prevIndice) => (prevIndice + 1) % librosProcesados.length
@@ -59,7 +59,7 @@ const Novedades = ({ libros }: { libros: any[] }) => {
                 Novedades!!
             </h1>
             <div className="relative bg-zinc-900 text-zinc-200 p-10 w-full md:max-w-2xl xl:max-w-4xl shadow-lg rounded-lg overflow-hidden">
-            <button
+                <button
                     className="absolute left-0 top-1/2 transform -translate-y-1/2 text-5xl text-white p-4"
                     onClick={libroAnterior}
                 >

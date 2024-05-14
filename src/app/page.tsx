@@ -3,6 +3,7 @@ import getDb from "@/lib/mongodb";
 import Libro from "@/lib/models/libro";
 import ListaDeLibros from "@/components/ListaDeLibros";
 import Novedades from "@/components/Novedades";
+import Link from "next/link";
 
 async function getLibros() {
     const db = await getDb();
@@ -39,8 +40,13 @@ const Page = async () => {
     const novedades = await getNovedades();
 
     return (
-        <div className="bg-zinc-300 text-black">
+        <div className="bg-zinc-300 text-black flex flex-col items-center">
             <Novedades libros={novedades} />
+            <Link href="/create-book">
+                <button className="mt-4 mx-4 px-4 py-2 rounded bg-emerald-800 hover:bg-emerald-900 text-zinc-300 text-lg transition duration-300">
+                    Crear libro
+                </button>
+            </Link>
             <ListaDeLibros libros={libros} />
         </div>
     );

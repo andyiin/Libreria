@@ -10,6 +10,7 @@ async function getLibros(busqueda: string) {
             $or: [
                 { name: { $regex: busqueda, $options: "i" } },
                 { author: { $regex: busqueda, $options: "i" } },
+                { categories: { $regex: busqueda, $options: "i" } },
             ],
         })
         .sort({ publication: -1 })
