@@ -4,12 +4,15 @@ import { WithId } from "mongodb";
 
 export default function AnnadirLibro(props: { libro: WithId<LibroModel> }) {
     const hoy = new Date();
-    const manana = new Date(hoy.getTime() + (24 * 60 * 60 * 1000));
-    const opciones: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric' };
-    const fechaManana = manana.toLocaleDateString('es-ES', opciones);
+    const manana = new Date(hoy.getTime() + 24 * 60 * 60 * 1000);
+    const opciones: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+        day: "numeric",
+    };
+    const fechaManana = manana.toLocaleDateString("es-ES", opciones);
 
     return (
-        <div className="flex flex-col md:flex-row justify-center px-5 w-1/3">
+        <div className="flex flex-col md:flex-row justify-center px-5 w-1/3 max-[768px]:w-full max-[768px]:items-center">
             <div className="flex-none md:ml-5 border-l-2 border-zinc-900 pl-5">
                 <p className="text-4xl font-bold p-4">
                     {props.libro.price.toString()}€
@@ -18,7 +21,7 @@ export default function AnnadirLibro(props: { libro: WithId<LibroModel> }) {
                     Añadir a la cesta
                 </button>
                 <div className="flex items-center mt-2 p-4">
-                <svg
+                    <svg
                         width="24px"
                         height="24px"
                         viewBox="0 0 24 24"
