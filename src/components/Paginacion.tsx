@@ -41,9 +41,9 @@ export const Paginacion = () => {
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                                 className="lucide lucide-chevron-left h-4 w-4"
                             >
                                 <path d="m15 18-6-6 6-6"></path>
@@ -64,9 +64,9 @@ export const Paginacion = () => {
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                                 className="lucide lucide-chevron-right h-4 w-4"
                             >
                                 <path d="m9 18 6-6-6-6"></path>
