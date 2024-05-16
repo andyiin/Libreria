@@ -1,19 +1,8 @@
-import React from "react";
 import getDb from "@/lib/mongodb";
 import Libro from "@/lib/models/libro";
-import ListaDeLibros from "@/components/ListaDeLibros";
 import Novedades from "@/components/Novedades";
 import Link from "next/link";
-
-async function getLibros() {
-    const db = await getDb();
-    const libros = await db
-        .collection<Libro>("products")
-        .find({})
-        .sort({ publication: -1 })
-        .toArray();
-    return libros;
-}
+import { Paginacion } from "@/components/Paginacion";
 
 async function getNovedades() {
     const db = await getDb();
@@ -36,7 +25,6 @@ async function getNovedades() {
 }
 
 const Page = async () => {
-    const libros = await getLibros();
     const novedades = await getNovedades();
 
     return (
@@ -47,7 +35,7 @@ const Page = async () => {
                     Crear libro
                 </button>
             </Link>
-            <ListaDeLibros libros={libros} />
+            <Paginacion />
         </div>
     );
 };
