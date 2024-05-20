@@ -1,20 +1,8 @@
-import React from "react";
-import Encabezado from "@/components/Encabezado";
 import getDb from "@/lib/mongodb";
 import Libro from "@/lib/models/libro";
-import { retrieve } from "@/lib/auth";
-import ListaDeLibros from "@/components/ListaDeLibros";
 import Novedades from "@/components/Novedades";
-
-async function getUser() {
-    return await retrieve("user");
-};
-
-async function getLibros() {
-    const db = await getDb();
-    const libros = await db.collection<Libro>("products").find({}).toArray();
-    return libros;
-};
+import Link from "next/link";
+import { Paginacion } from "@/components/Paginacion";
 
 async function getNovedades() {
     const db = await getDb();
@@ -34,18 +22,20 @@ async function getNovedades() {
     }));
 
     return novedadesSerializables;
-};
+}
 
 const Page = async () => {
-    const libros = await getLibros();
     const novedades = await getNovedades();
-    const user = await getUser();
 
     return (
-        <div className="bg-zinc-300 text-black">
-            <Encabezado user={user} />
+        <div className="bg-zinc-300 text-black flex flex-col items-center">
             <Novedades libros={novedades} />
-            <ListaDeLibros libros={libros} />
+            <Link href="/create-book">
+                <button className="mt-4 mx-4 px-4 py-2 rounded bg-emerald-800 hover:bg-emerald-900 text-zinc-300 text-lg transition duration-300">
+                    Crear libro
+                </button>
+            </Link>
+            <Paginacion />
         </div>
     );
 };

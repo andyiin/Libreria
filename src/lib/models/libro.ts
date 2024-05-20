@@ -1,6 +1,7 @@
-import { Decimal128 } from "mongodb";
+import { Decimal128, ObjectId } from "mongodb";
 
 export default interface Libro {
+    _id: ObjectId;
     name: string;
     stock: number;
     price: Decimal128;
