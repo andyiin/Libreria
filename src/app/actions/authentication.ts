@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import User from "@/lib/models/usuario";
 import getDb from "@/lib/mongodb";
 import { store } from "@/lib/auth";
-import { LoginSchema, FormState } from "@/lib/definitions";
+import { LoginSchema, RegisterSchema, FormState } from "@/lib/definitions";
 
 /**
  * Retrieves a user from the database by their mail.
@@ -17,7 +17,6 @@ async function getUserByMail(mail: string): Promise<User | null> {
     const db = await getDb();
     return await db.collection<User>("users").findOne({ mail });
 };
-
 
 /**
  * Logs in a user with the provided form data.
@@ -57,13 +56,17 @@ export async function login(_:any, formData: FormData) : Promise<FormState> {
  * @returns A Promise that resolves to a FormState object.
  */
 export async function register(_:any, formData: FormData) : Promise<FormState> {
-    const {success, data: dataForm, error} = LoginSchema.safeParse({
+    const {success, data: dataForm, error} = RegisterSchema.safeParse({
         email: formData.get("email")?.toString().trim() ?? "",
-        password: formData.get("password")?.toString().trim() ?? ""
+        password: formData.get("password")?.toString().trim() ?? "",
+        password2: formData.get("password-2")?.toString().trim() ?? ""
     });
 
     if (!success)
         return { errors: error.flatten().fieldErrors };
+
+    if (dataForm.password !== dataForm.password2)
+        return { errors: { password: ["Las contraseñas no coinciden"] } };
 
     const user = await getUserByMail(dataForm.email);
 
