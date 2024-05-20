@@ -1,9 +1,15 @@
-import Link from "next/link";
+"use client";
 
-export default function Login(props: { handleLogin: (formData: FormData) => void }) {
+import Link from "next/link";
+import { useFormState } from "react-dom";
+import { login } from "@/app/actions/authentication";
+
+export default function Login() {
+    const [state, action] = useFormState(login, undefined);
+
     return (
         <div className="flex items-center justify-center min-h-screen bg-zinc-300">
-            <form className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 w-full max-w-md" action={props.handleLogin}>
+            <form className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 w-full max-w-md" action={action}>
                 <h2 className="text-2xl font-bold mb-6 text-center text-indigo-800">Iniciar sesión</h2>
                 <div className="mb-4">
                     <label className="block text-indigo-800 text-sm font-bold mb-2" htmlFor="email">
@@ -16,6 +22,7 @@ export default function Login(props: { handleLogin: (formData: FormData) => void
                         name="email"
                         required
                     />
+                    {state?.errors?.email && <p className="text-red-600 font-bold">{state.errors.email}</p>}
                 </div>
                 <div className="mb-6">
                     <label className="block text-indigo-800 text-sm font-bold mb-2" htmlFor="password">
@@ -28,6 +35,7 @@ export default function Login(props: { handleLogin: (formData: FormData) => void
                         name="password"
                         required
                     />
+                    {state?.errors?.password && <p className="text-red-600 font-bold">{state.errors.password}</p>}
                 </div>
                 <div className="flex items-center justify-between">
                     <button
