@@ -1,49 +1,28 @@
 import Link from "next/link";
-import Logout from "@/components/Logout";
 import Image from "next/image";
 import { InfoUser } from "@/lib/models/usuario";
-
+import Logout from "@/components/Logout";
+import Buscador from "@/components/Buscador";
+        
 export default function Encabezado(props: { user: InfoUser | undefined }) {
-
     return (
-        <header className="flex items-center justify-between px-4 py-2 bg-gray-200">
+        <header className="flex items-center justify-between px-4 py-2 bg-gray-200 text-gray-800">
             <div>
                 <Link href="/">
-                    <h1 className="flex flex-row items-center text-2xl font-bold text-gray-800">
+                    <h1 className="flex flex-row items-center text-2xl font-bold">
                         Librería
                         <Image
-                            src="./home.svg"
+                            src="/home.svg"
                             alt="Logo"
                             width={65}
                             height={65}
-                            className="ml-2"   
+                            className="ml-2"
                         />
                     </h1>
                 </Link>
             </div>
             <div className="flex items-center w-1/2">
-                <div className="relative w-full">
-                    <input
-                        type="text"
-                        placeholder="Buscar..."
-                        className="w-full px-4 py-2 pr-10 border border-gray-400 rounded-lg"
-                    />
-                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                        <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-5 h-5 text-gray-500"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                clipRule="evenodd"
-                                d="M15 10.5C15 12.9853 12.9853 15 10.5 15C8.01472 15 6 12.9853 6 10.5C6 8.01472 8.01472 6 10.5 6C12.9853 6 15 8.01472 15 10.5ZM14.1793 15.2399C13.1632 16.0297 11.8865 16.5 10.5 16.5C7.18629 16.5 4.5 13.8137 4.5 10.5C4.5 7.18629 7.18629 4.5 10.5 4.5C13.8137 4.5 16.5 7.18629 16.5 10.5C16.5 11.8865 16.0297 13.1632 15.2399 14.1792L20.0304 18.9697L18.9697 20.0303L14.1793 15.2399Z"
-                                fill="#080341"
-                            />
-                        </svg>
-                    </div>
-                </div>
+                <Buscador />
             </div>
             <nav>
                 {props.user && (
@@ -65,4 +44,4 @@ export default function Encabezado(props: { user: InfoUser | undefined }) {
             </nav>
         </header>
     );
-};
+}
