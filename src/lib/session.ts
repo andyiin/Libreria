@@ -14,7 +14,11 @@ type CookieType = {
 
 type CookieTypeField = keyof CookieType;
 
-
+/**
+ * Encrypts the provided data using JWT and returns the signed token.
+ * @param data The data to be encrypted.
+ * @returns A Promise that resolves to the signed token.
+ */
 async function encrypt<Field extends CookieTypeField>(data: CookieType[Field]) {
     return new SignJWT(data)
         .setProtectedHeader({ alg: "HS256" })
@@ -25,7 +29,7 @@ async function encrypt<Field extends CookieTypeField>(data: CookieType[Field]) {
 
 /**
  * Decrypts the given data using JWT verification.
- * @param data - The data to be decrypted.
+ * @param data - The encrypted data to be decrypted.
  * @returns The decrypted payload.
  */
 async function decrypt<Field extends CookieTypeField>(data: string) {
@@ -55,7 +59,12 @@ export async function store<Field extends CookieTypeField>(name: Field, sessionD
     });
 };
 
-
+/**
+ * Retrieves the value of a cookie and decrypts it.
+ * 
+ * @param name The name of the cookie to retrieve.
+ * @returns The decrypted value of the cookie, or `undefined` if the cookie does not exist or cannot be decrypted.
+ */
 export async function retrieve<Field extends CookieTypeField>(name: Field) {
     const cookie = cookies().get(name);
     if (!cookie) return undefined;
