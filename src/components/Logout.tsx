@@ -1,4 +1,4 @@
-import { deleteCookie } from "@/lib/auth";
+import { deleteCookie } from "@/lib/session";
 import { redirect } from "next/navigation";
 
 const action = async () => {

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
 import User from "@/lib/models/usuario";
 import getDb from "@/lib/mongodb";
-import { store } from "@/lib/auth";
+import { store } from "@/lib/session";
 import { LoginSchema, RegisterSchema, FormState } from "@/lib/definitions";
 
 /**

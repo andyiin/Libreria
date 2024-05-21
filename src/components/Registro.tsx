@@ -56,10 +56,10 @@ export default function Registro() {
                     >
                         Registrarse
                     </button>
+                    <Link href="/login" className="inline-block align-baseline font-bold text-sm text-indigo-800 hover:text-indigo-900">
+                        ¿Ya tienes cuenta?
+                    </Link>
                 </div>
-                <Link href="/login" className="inline-block align-baseline font-bold text-sm text-indigo-800 hover:text-indigo-900">
-                    ¿Ya tienes cuenta?
-                </Link>
             </form>
         </div>
     );
