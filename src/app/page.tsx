@@ -1,9 +1,9 @@
 import getDb from "@/lib/mongodb";
 import Libro from "@/lib/models/libro";
+import { retrieve } from "@/lib/session";
 import Novedades from "@/components/Novedades";
 import { Paginacion } from "@/components/Paginacion";
 import CrearLibroBoton from "@/components/CrearLibroBoton";
-import { retrieve } from "@/lib/auth";
 import EncabezadoBuscador from "@/components/EncabezadoBuscador";
 
 async function getUser() {
