@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 
 interface CrearLibroProps {
@@ -283,6 +284,11 @@ export default function CrearLibro({ onSubmit }: CrearLibroProps): JSX.Element {
                 >
                     Crear libro
                 </button>
+                <Link href="/">
+                    <button className="mx-4 justify-center bg-red-800 hover:bg-red-900 text-zinc-300 font-bold py-3 px-4 rounded mt-6 transition duration-300">
+                        Cancelar
+                    </button>
+                </Link>
             </form>
         </div>
     );

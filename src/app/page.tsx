@@ -1,8 +1,14 @@
 import getDb from "@/lib/mongodb";
 import Libro from "@/lib/models/libro";
 import Novedades from "@/components/Novedades";
-import Link from "next/link";
 import { Paginacion } from "@/components/Paginacion";
+import CrearLibroBoton from "@/components/CrearLibroBoton";
+import { retrieve } from "@/lib/auth";
+import EncabezadoBuscador from "@/components/EncabezadoBuscador";
+
+async function getUser() {
+    return await retrieve("user");
+}
 
 async function getNovedades() {
     const db = await getDb();
@@ -26,17 +32,19 @@ async function getNovedades() {
 
 const Page = async () => {
     const novedades = await getNovedades();
+    const user = await getUser();
 
     return (
-        <div className="bg-zinc-300 text-black flex flex-col items-center">
-            <Novedades libros={novedades} />
-            <Link href="/create-book">
-                <button className="mt-4 mx-4 px-4 py-2 rounded bg-emerald-800 hover:bg-emerald-900 text-zinc-300 text-lg transition duration-300">
-                    Crear libro
-                </button>
-            </Link>
-            <Paginacion />
-        </div>
+        <>
+            <div className="flex items-center justify-center w-full bg-gray-200">
+                <EncabezadoBuscador />
+            </div>
+            <div className="bg-zinc-300 text-black flex flex-col items-center">
+                <Novedades libros={novedades} />
+                <CrearLibroBoton user={user} />
+                <Paginacion />
+            </div>
+        </>
     );
 };
 

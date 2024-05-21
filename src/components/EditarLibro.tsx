@@ -2,6 +2,7 @@
 import React from "react";
 import { WithId } from "mongodb";
 import Libro from "@/lib/models/libro";
+import Link from "next/link";
 
 interface EditarLibroProps {
     libro: WithId<Libro>;
@@ -307,6 +308,11 @@ export default function EditarLibro({
                 >
                     Actualizar Libro
                 </button>
+                <Link href={`./`}>
+                    <button className="mx-4 justify-center bg-red-800 hover:bg-red-900 text-zinc-300 font-bold py-3 px-4 rounded mt-6 transition duration-300">
+                        Cancelar
+                    </button>
+                </Link>
             </form>
         </div>
     );
