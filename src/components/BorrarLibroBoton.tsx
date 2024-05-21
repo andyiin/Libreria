@@ -1,18 +1,30 @@
 "use client";
+import { InfoUser } from "@/lib/models/usuario";
 import { deleteLibro } from "@/app/detail/[id]/deleteLibro";
 import Link from "next/link";
 
-export default function BorrarLibroBoton(params: any) {
+interface BorrarLibroBotonProps {
+    id: string;
+    user: InfoUser | undefined;
+}
+
+export default function BorrarLibroBoton({ id, user }: BorrarLibroBotonProps) {
     return (
-        <Link href="/">
-            <button
-                className="mt-2 mx-4 px-4 py-2 rounded bg-red-800 hover:bg-red-900 text-zinc-300 text-lg transition duration-300"
-                onClick={async () => {
-                    await deleteLibro(params.id);
-                }}
-            >
-                Borrar libro
-            </button>
-        </Link>
+        <>
+            {user?.rol === "admin" && (
+                <Link href="/">
+                    <button
+                        className="mt-2 mx-4 px-4 py-2 rounded bg-red-800 hover:bg-red-900 text-zinc-300 text-lg transition duration-300"
+                        onClick={async () => {
+                            if (user?.rol === "admin") {
+                                await deleteLibro(id);
+                            }
+                        }}
+                    >
+                        Borrar libro
+                    </button>
+                </Link>
+            )}
+        </>
     );
 }

@@ -1,3 +1,4 @@
+import EncabezadoBuscador from "@/components/EncabezadoBuscador";
 import ListaDeLibros from "@/components/ListaDeLibros";
 import Libro from "@/lib/models/libro";
 import getDb from "@/lib/mongodb";
@@ -26,9 +27,14 @@ const Page = async ({
 }) => {
     const libros = await getLibros(searchParams.busqueda);
     return (
-        <div className="bg-zinc-300 text-black min-h-screen">
-            <ListaDeLibros libros={libros} />
-        </div>
+        <>
+            <div className="flex items-center justify-center w-full bg-gray-200">
+                <EncabezadoBuscador />
+            </div>
+            <div className="bg-zinc-300 text-black min-h-screen">
+                <ListaDeLibros libros={libros} />
+            </div>
+        </>
     );
 };
 

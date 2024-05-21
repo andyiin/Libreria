@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { InfoUser } from "@/lib/models/usuario";
 import Logout from "@/components/Logout";
-import Buscador from "@/components/Buscador";
         
 export default function Encabezado(props: { user: InfoUser | undefined }) {
     return (
@@ -20,9 +19,6 @@ export default function Encabezado(props: { user: InfoUser | undefined }) {
                         />
                     </h1>
                 </Link>
-            </div>
-            <div className="flex items-center w-1/2">
-                <Buscador />
             </div>
             <nav>
                 {props.user && (
