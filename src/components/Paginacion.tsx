@@ -9,7 +9,7 @@ export const Paginacion = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [libros, setLibros] = useState<WithId<Libro>[]>([]);
     const [totalPages, setTotalPages] = useState(0);
-    const librosPerPage = 10;
+    const librosPerPage = 12;
 
     useEffect(() => {
         const fetchLibros = async () => {
