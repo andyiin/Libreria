@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import VistaDetallada from "@/components/VistaDetallada";
 import BorrarLibroBoton from "@/components/BorrarLibroBoton";
 import EditarLibroBoton from "@/components/EditarLibroBoton";
-import { retrieve } from "@/lib/auth";
+import { retrieve } from "@/lib/session";
 import EncabezadoBuscador from "@/components/EncabezadoBuscador";
 
 async function getUser() {
