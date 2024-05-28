@@ -2,7 +2,7 @@
 import Libro from "@/lib/models/libro";
 import getDb from "@/lib/mongodb";
 
-export async function getLibros(page: number = 1, librosPerPage: number = 10) {
+export async function getLibros(page: number = 1, librosPerPage: number = 12) {
     const db = await getDb();
     const totalLibros = await db.collection<Libro>("products").countDocuments(); // Total de libros
     const skip = (page - 1) * librosPerPage;

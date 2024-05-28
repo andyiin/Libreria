@@ -4,7 +4,7 @@ import { WithId } from "mongodb";
 
 export default function Libro(props: { libro: WithId<LibroModel> }) {
     return (
-        <li className="bg-indigo-300 flex flex-col w-52 rounded-xl overflow-hidden">
+        <li className="bg-indigo-300 flex flex-col w-56 rounded-xl overflow-hidden">
             <div>
                 <Link href={`/detail/${props.libro._id}`}>
                     <img
