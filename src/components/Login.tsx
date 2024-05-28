@@ -8,12 +8,12 @@ export default function Login() {
     const [state, action] = useFormState(login, undefined);
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-zinc-300">
+        <div className="flex items-center justify-center min-h-[91.2vh] bg-zinc-300">
             <form className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 w-full max-w-md" action={action}>
                 <h2 className="text-2xl font-bold mb-6 text-center text-indigo-800">Iniciar sesión</h2>
                 <div className="mb-4">
                     <label className="block text-indigo-800 text-sm font-bold mb-2" htmlFor="email">
-                        Correo
+                        Correo electrónico
                     </label>
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-indigo-800 leading-tight focus:outline-none focus:shadow-outline"

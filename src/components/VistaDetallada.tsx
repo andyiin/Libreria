@@ -3,7 +3,6 @@ import AnnadirLibro from "@/components/AnnadirLibro";
 import FichaTecnica from "@/components/FichaTecnica";
 import ListaDeLibros from "@/components/ListaDeLibros";
 import { WithId } from "mongodb";
-import Link from "next/link";
 import Libro from "@/lib/models/libro";
 
 export default function VistaDetallada(props: {

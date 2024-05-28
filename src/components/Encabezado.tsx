@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { InfoUser } from "@/lib/models/usuario";
-import Logout from "@/components/Logout";
+import Menu from "@/components/MenuLogged";
         
 export default function Encabezado(props: { user: InfoUser | undefined }) {
     return (
@@ -20,21 +20,19 @@ export default function Encabezado(props: { user: InfoUser | undefined }) {
                     </h1>
                 </Link>
             </div>
-            <nav>
+            <nav className="flex gap-4">
                 {props.user && (
-                    <>
-                        {props.user.rol === "admin" && <Link href="/dashboard" className="mr-4">
-                            Dashboard
-                        </Link>}
-                        <Logout />
-                    </>
+                    <Menu user={props.user} />
                 )}
                 {!props.user && (
-                    <>
-                        <Link href="/login" className="mr-4">
+                    <> 
+                        <Link href="/login" className="bg-zinc-300 hover:bg-zinc-400 px-2 py-1 rounded-md ring-2 ring-indigo-800">
                             Iniciar sesión
                         </Link>
-                        <Link href="/register">Crear cuenta</Link>
+
+                        <Link href="/register" className="bg-zinc-300 hover:bg-zinc-400 px-2 py-1 rounded-md ring-2 ring-indigo-800">
+                            Crear cuenta
+                        </Link>
                     </>
                 )}
             </nav>

@@ -10,8 +10,8 @@ const action = async () => {
 
 export default function Logout() {
     return (
-        <form action={action}>
-            <button type="submit">Logout</button>
+        <form action={action} className="text-center">
+            <button className="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" type="submit">Logout</button>
         </form>
     );
 };
