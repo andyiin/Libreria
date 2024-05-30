@@ -37,7 +37,7 @@ export default function MenuLogged(props: { user: InfoUser }) {
                 <MenuItems className="text-center absolute right-0 w-56 mt-2 origin-top-right bg-gray-100 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="px-1 py-1">
                         <MenuItem>
-                            <Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" href="/profile" passHref>
+                            <Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" href={`/profile/${props.user._id}`} passHref>
                                 Perfil
                             </Link>
                         </MenuItem>
