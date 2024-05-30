@@ -8,7 +8,7 @@ export default function Registro() {
     const [state, action] = useFormState(register, undefined);
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-zinc-300">
+        <div className="flex items-center justify-center min-h-[91.2vh] bg-zinc-300">
             <form className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 w-full max-w-md" action={action}>
                 <h2 className="text-2xl font-bold mb-6 text-center text-indigo-800">Registro</h2>
                 <div className="mb-4">
