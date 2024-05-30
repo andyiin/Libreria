@@ -43,7 +43,7 @@ export async function login(_:any, formData: FormData) : Promise<FormState> {
     if (!isValid)
         return { errors: { password: ["Contraseña incorrecta"] } };
     
-    await store( "user", { mail: user.mail, rol: user.rol, active: user.active, visible: user.visible });
+    await store( "user", { _id: user._id, mail: user.mail, rol: user.rol, active: user.active, visible: user.visible, city: user.city, name: user.name, numphone: user.numphone, postalcode: user.postalcode, street: user.street });
     
     redirect("/");
 };

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { InfoUser } from "@/lib/models/usuario";
 import Logout from "@/components/Logout";
-        
+
 export default function Encabezado(props: { user: InfoUser | undefined }) {
     return (
         <header className="flex items-center justify-between px-4 py-2 bg-gray-200 text-gray-800">
@@ -22,10 +22,17 @@ export default function Encabezado(props: { user: InfoUser | undefined }) {
             </div>
             <nav>
                 {props.user && (
+                    <Link href={`/profile/${props.user._id}`} className="mr-4">
+                        Mi perfil
+                    </Link>
+                )}
+                {props.user && (
                     <>
-                        {props.user.rol === "admin" && <Link href="/dashboard" className="mr-4">
-                            Dashboard
-                        </Link>}
+                        {props.user.rol === "admin" && (
+                            <Link href="/dashboard" className="mr-4">
+                                Dashboard
+                            </Link>
+                        )}
                         <Logout />
                     </>
                 )}

@@ -14,7 +14,7 @@ export default function EditarLibro({
     onSubmit,
 }: EditarLibroProps): JSX.Element {
     const handleISBNInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        let value = event.target.value.slice(0, 13);
+        const value = event.target.value.slice(0, 13);
         event.target.value = value.replace(/[^0-9]/g, "");
     };
 
