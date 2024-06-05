@@ -2,9 +2,10 @@ import getDb from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import Usuario from "@/lib/models/usuario";
 import { redirect } from "next/navigation";
-import EditarPerfil from "@/components/EditarPerfil";
+import bcrypt from "bcryptjs";
+import EditarContrasenaAdmin from "@/components/EditarContrasenaAdmin";
 
-// Server Action para cargar los datos del perfil del usuario
+// Server Action para cargar los datos de la contraseña del usuario
 async function loadPerfil(id: string) {
     "use server";
     const db = await getDb();
@@ -25,18 +26,24 @@ async function loadPerfil(id: string) {
 async function updatePerfil(formData: FormData) {
     "use server";
     const db = await getDb();
-    const numphone = formData.get("numphone");
-    const postalcode = formData.get("postalcode");
+    const newPassword = formData.get("password")?.toString().trim();
+
+    // Obtener el usuario actual de la base de datos
+    const user = await db.collection<Usuario>("users").findOne({ _id: new ObjectId(formData.get("id")?.toString()) });
+
+    if (!user) {
+        throw new Error("Usuario no encontrado");
+    }
+
+    // Encriptar la nueva contraseña si se proporciona
+    let hashedPassword = user.password;
+    if (newPassword) {
+        hashedPassword = await bcrypt.hash(newPassword, 10);
+    }
 
     const data: Partial<Usuario> = {
-        name: formData.get("name")?.toString(),
-        mail: formData.get("mail")?.toString(),
-        numphone: numphone ? +numphone : undefined,
-        visible: formData.get("visible") === "true",
-        street: formData.get("street")?.toString(),
-        city: formData.get("city")?.toString(),
-        postalcode: postalcode ? +postalcode : undefined,
-    }
+        password: hashedPassword,
+    };
 
     await db
         .collection<Usuario>("users")
@@ -44,7 +51,7 @@ async function updatePerfil(formData: FormData) {
             { _id: new ObjectId(formData.get("id")?.toString()) },
             { $set: data }
         );
-    redirect("./");
+    redirect("../../dashboard");
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -57,7 +64,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     return (
         <div className="bg-zinc-300 text-black py-10 flex items-center justify-center min-h-screen">
-            <EditarPerfil perfil={perfil} onSubmit={updatePerfil} />
+            <EditarContrasenaAdmin perfil={perfil} onSubmit={updatePerfil} />
         </div>
     );
 }
