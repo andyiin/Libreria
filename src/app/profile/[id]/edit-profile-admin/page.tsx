@@ -2,7 +2,7 @@ import getDb from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import Usuario from "@/lib/models/usuario";
 import { redirect } from "next/navigation";
-import EditarPerfil from "@/components/EditarPerfil";
+import EditarPerfilAdmin from "@/components/EditarPerfilAdmin";
 
 // Server Action para cargar los datos del perfil del usuario
 async function loadPerfil(id: string) {
@@ -44,7 +44,7 @@ async function updatePerfil(formData: FormData) {
             { _id: new ObjectId(formData.get("id")?.toString()) },
             { $set: data }
         );
-    redirect("./");
+    redirect("../../dashboard");
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -57,7 +57,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     return (
         <div className="bg-zinc-300 text-black py-10 flex items-center justify-center min-h-screen">
-            <EditarPerfil perfil={perfil} onSubmit={updatePerfil} />
+            <EditarPerfilAdmin perfil={perfil} onSubmit={updatePerfil} />
         </div>
     );
 }

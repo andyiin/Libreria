@@ -2,15 +2,15 @@ import UsuarioModel from "@/lib/models/usuario";
 import { WithId } from "mongodb";
 import Link from "next/link";
 
-export default function UsuarioDetallado(props: {
+export default function UsuarioDetalladoAdmin(props: {
     id: string;
     usuario: WithId<UsuarioModel>;
 }) {
     return (
-        <div className="bg-zinc-300 text-black py-10 flex items-center justify-center min-h-screen">
-            <div className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 max-w-4xl">
+        <div className="text-black flex items-center justify-center">
+            <div className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 w-96">
                 <h1 className="text-2xl font-bold mb-2 text-indigo-800">
-                    Mi perfil
+                    Perfil
                 </h1>
                 <ul>
                     <li className="mb-2">
@@ -43,13 +43,13 @@ export default function UsuarioDetallado(props: {
                         {props.usuario.postalcode}
                     </li>
                 </ul>
-                <Link href={`/profile/${props.id}/edit-profile`}>
+                <Link href={`/profile/${props.id}/edit-profile-admin`}>
                     <button className="px-4 py-2 rounded bg-emerald-800 hover:bg-emerald-900 text-zinc-300 text-lg transition duration-300">
                         Editar
                     </button>
                 </Link>
                 <br/>
-                <Link href={`/profile/${props.id}/edit-password`}>
+                <Link href={`/profile/${props.id}/edit-password-admin`}>
                     <button className="px-4 py-2 mt-2 rounded bg-indigo-800 hover:bg-indigo-900 text-zinc-300 text-lg transition duration-300">
                         Cambiar contraseña
                     </button>

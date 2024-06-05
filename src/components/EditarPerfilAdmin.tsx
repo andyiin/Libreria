@@ -1,15 +1,15 @@
-"use client";
-import React, { useState } from "react";
-import { WithId } from "mongodb";
-import Usuario from "@/lib/models/usuario";
-import Link from "next/link";
+'use client';
+import React, { useState } from 'react';
+import { WithId } from 'mongodb';
+import Usuario from '@/lib/models/usuario';
+import Link from 'next/link';
 
 interface EditarPerfilProps {
     perfil: WithId<Usuario>;
     onSubmit: (formData: FormData) => void;
 }
 
-export default function EditarPerfil({
+export default function EditarPerfilAdmin({
     perfil,
     onSubmit,
 }: EditarPerfilProps): JSX.Element {
@@ -18,13 +18,17 @@ export default function EditarPerfil({
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setVisible(e.target.checked);
     };
-    
-    const handleNumPhoneInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+    const handleNumPhoneInput = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const value = event.target.value.slice(0, 9);
         event.target.value = value;
     };
 
-    const handleCodePostalInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleCodePostalInput = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const value = event.target.value.slice(0, 5);
         event.target.value = value;
     };
@@ -32,13 +36,15 @@ export default function EditarPerfil({
     const handleMailInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
         if (emailRegex.test(value) || value === "") {
             event.target.setCustomValidity("");
         } else {
-            event.target.setCustomValidity("Por favor, introduce una dirección de correo electrónico válida.");
+            event.target.setCustomValidity(
+                "Por favor, introduce una dirección de correo electrónico válida."
+            );
         }
-    
+
         event.target.reportValidity();
     };
 
@@ -50,7 +56,9 @@ export default function EditarPerfil({
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    onSubmit(new FormData(e.target as HTMLFormElement));
+                    const formData = new FormData(e.target as HTMLFormElement);
+                    formData.set('visible', visible.toString());
+                    onSubmit(formData);
                 }}
                 className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-md"
                 encType="multipart/form-data"
@@ -112,6 +120,24 @@ export default function EditarPerfil({
                         />
                     </div>
 
+                    {/* Visibilidad */}
+                    <div>
+                        <label
+                            htmlFor="visible"
+                            className="block text-sm font-medium text-indigo-800"
+                        >
+                            Cuenta activa
+                        </label>
+                        <input
+                            type="checkbox"
+                            name="visible"
+                            id="visible"
+                            checked={visible}
+                            onChange={handleCheckboxChange}
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                        />
+                    </div>
+
                     {/* Dirección */}
                     <div>
                         <label
@@ -163,26 +189,6 @@ export default function EditarPerfil({
                             onChange={handleCodePostalInput}
                         />
                     </div>
-                    {/* Visibilidad */}
-                    <br/>
-                    <p><b>Si quieres desactivar tu cuenta pulsa el checkbox</b></p>
-                    <div>
-                        <label
-                            htmlFor="visible"
-                            className="block text-sm font-medium text-indigo-800"
-                        >
-                            Cuenta activa
-                        </label>
-                        <input
-                            type="checkbox"
-                            name="visible"
-                            id="visible"
-                            checked={visible}
-                            onChange={handleCheckboxChange}
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                        />
-                    </div>
-
                 </div>
                 <button
                     type="submit"
@@ -190,7 +196,7 @@ export default function EditarPerfil({
                 >
                     Actualizar Perfil
                 </button>
-                <Link href={`./`}>
+                <Link href={`../../dashboard`}>
                     <button className="mx-4 justify-center bg-red-800 hover:bg-red-900 text-zinc-300 font-bold py-3 px-4 rounded mt-6 transition duration-300">
                         Cancelar
                     </button>
