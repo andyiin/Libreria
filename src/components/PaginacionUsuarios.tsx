@@ -25,7 +25,6 @@ export const PaginacionUsuarios = () => {
 
     return (
         <>
-            <h1 className="text-4xl text-indigo-800 font-bold pt-6 text-center">Gestión usuarios</h1>
             <ListaUsuario usuarios={usuarios} />
             <div className="flex flex-col items-center justify-center pb-4">
                 <div className="flex flex-row items-center justify-center pb-4">
