@@ -26,8 +26,8 @@ export const Paginacion = () => {
     return (
         <>
             <ListaDeLibros libros={libros} />
-            <div className="flex flex-col items-center justify-center mb-4">
-                <div className="flex flex-row items-center justify-center mb-4">
+            <div className="flex flex-col items-center justify-center pb-6">
+                <div className="flex flex-row items-center justify-center pb-4">
                     <button
                         className="bg-indigo-300 text-black py-2 px-4 mx-2 rounded hover:bg-indigo-400 transition duration-300"
                         onClick={() => setCurrentPage(currentPage - 1)}

@@ -6,7 +6,7 @@ import VistaDetallada from "@/components/VistaDetallada";
 import BorrarLibroBoton from "@/components/BorrarLibroBoton";
 import EditarLibroBoton from "@/components/EditarLibroBoton";
 import { retrieve } from "@/lib/session";
-import EncabezadoBuscador from "@/components/EncabezadoBuscador";
+import Buscador from "@/components/Buscador";
 
 async function getUser() {
     return await retrieve("user");
@@ -45,9 +45,9 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
     return (
         <>
-            <div className="flex items-center justify-center w-full bg-gray-200">
-                <EncabezadoBuscador />
-            </div>
+            <div className="flex justify-center pt-6 bg-gray-300">
+                    <Buscador />
+                </div>
             <div className="bg-zinc-300 text-black px-20 pt-10 ">
                 <EditarLibroBoton id={params.id} user={user} />
                 <BorrarLibroBoton id={params.id} user={user} />

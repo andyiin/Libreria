@@ -4,7 +4,7 @@ import { retrieve } from "@/lib/session";
 import Novedades from "@/components/Novedades";
 import { Paginacion } from "@/components/Paginacion";
 import CrearLibroBoton from "@/components/CrearLibroBoton";
-import EncabezadoBuscador from "@/components/EncabezadoBuscador";
+import Buscador from "@/components/Buscador";
 
 async function getUser() {
     return await retrieve("user");
@@ -35,16 +35,16 @@ const Page = async () => {
     const user = await getUser();
 
     return (
-        <>
-            <div className="flex items-center justify-center w-full bg-gray-200">
-                <EncabezadoBuscador />
-            </div>
-            <div className="bg-zinc-300 text-black flex flex-col items-center">
+            <div className="bg-zinc-300 text-black flex-col items-center">
                 <Novedades libros={novedades} />
-                <CrearLibroBoton user={user} />
+                <div className="flex justify-center">
+                    <CrearLibroBoton user={user} />
+                </div>
+                <div className="flex justify-center pt-6">
+                    <Buscador />
+                </div>
                 <Paginacion />
             </div>
-        </>
     );
 };
 
