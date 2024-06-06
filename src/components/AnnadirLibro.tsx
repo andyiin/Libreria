@@ -17,7 +17,7 @@ export default function AnnadirLibro(props: { libro: WithId<LibroModel> }) {
                 <p className="text-4xl font-bold p-4">
                     {props.libro.price.toString()}€
                 </p>
-                <button className="mt-2 mx-4 px-4 py-2 rounded bg-indigo-800 hover:bg-indigo-900 text-zinc-300 text-lg transition duration-300">
+                <button className="mt-2 mx-4 px-4 py-2 rounded bg-indigo-800 hover:bg-indigo-900 text-white text-lg transition duration-300">
                     Añadir a la cesta
                 </button>
                 <div className="flex items-center mt-2 p-4">

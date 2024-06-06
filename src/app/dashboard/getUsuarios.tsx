@@ -9,7 +9,7 @@ export async function getUsuarios(page: number = 1, usuariosPerPage: number = 12
     const usuarios = await db
         .collection<Usuario>("users")
         .find({})
-        .sort({ publication: -1 })
+        .sort({ rol: 1 })
         .skip(skip)
         .limit(usuariosPerPage)
         .toArray();

@@ -50,30 +50,16 @@ export default function EditarPerfil({
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    onSubmit(new FormData(e.target as HTMLFormElement));
+                    // onSubmit(new FormData(e.target as HTMLFormElement));
+                    const formData = new FormData(e.target as HTMLFormElement);
+                    formData.set("visible", visible.toString());
+                    onSubmit(formData);
                 }}
                 className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-md"
                 encType="multipart/form-data"
             >
                 <input type="hidden" name="id" value={perfil._id.toString()} />
                 <div className="flex flex-col">
-                    {/* Nombre */}
-                    <div>
-                        <label
-                            htmlFor="name"
-                            className="block text-sm font-medium text-indigo-800"
-                        >
-                            Nombre
-                        </label>
-                        <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            defaultValue={perfil.name}
-                            className="w-full p-3 border border-gray-300 rounded mt-1"
-                        />
-                    </div>
-
                     {/* Email */}
                     <div>
                         <label
@@ -90,6 +76,23 @@ export default function EditarPerfil({
                             required
                             className="w-full p-3 border border-gray-300 rounded mt-1"
                             onChange={handleMailInput}
+                        />
+                    </div>
+
+                    {/* Nombre */}
+                    <div>
+                        <label
+                            htmlFor="name"
+                            className="block text-sm font-medium text-indigo-800"
+                        >
+                            Nombre
+                        </label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            defaultValue={perfil.name}
+                            className="w-full p-3 border border-gray-300 rounded mt-1"
                         />
                     </div>
 
@@ -163,35 +166,43 @@ export default function EditarPerfil({
                             onChange={handleCodePostalInput}
                         />
                     </div>
+
                     {/* Visibilidad */}
-                    <br/>
-                    <p><b>Si quieres desactivar tu cuenta pulsa el checkbox</b></p>
                     <div>
-                        <label
-                            htmlFor="visible"
-                            className="block text-sm font-medium text-indigo-800"
-                        >
-                            Cuenta activa
-                        </label>
-                        <input
-                            type="checkbox"
-                            name="visible"
-                            id="visible"
-                            checked={visible}
-                            onChange={handleCheckboxChange}
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                        />
+                        <br />
+                        <p>
+                            <b>
+                                Si quieres deshabilitar tu cuenta pulsa el
+                                checkbox
+                            </b>
+                        </p>
+                        <div className="flex items-center space-x-2">
+                            <label
+                                htmlFor="visible"
+                                className="block text-sm font-medium text-indigo-800"
+                            >
+                                Cuenta activa
+                            </label>
+                            <input
+                                type="checkbox"
+                                name="visible"
+                                id="visible"
+                                checked={visible}
+                                onChange={handleCheckboxChange}
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                            />
+                        </div>
                     </div>
 
                 </div>
                 <button
                     type="submit"
-                    className="justify-center bg-indigo-800 hover:bg-indigo-900 text-zinc-300 font-bold py-3 px-4 rounded mt-6 transition duration-300"
+                    className="justify-center bg-indigo-800 hover:bg-indigo-900 text-white font-bold py-3 px-4 rounded mt-6 transition duration-300"
                 >
                     Actualizar Perfil
                 </button>
                 <Link href={`./`}>
-                    <button className="mx-4 justify-center bg-red-800 hover:bg-red-900 text-zinc-300 font-bold py-3 px-4 rounded mt-6 transition duration-300">
+                    <button className="mx-4 justify-center bg-red-800 hover:bg-red-900 text-white font-bold py-3 px-4 rounded mt-6 transition duration-300">
                         Cancelar
                     </button>
                 </Link>

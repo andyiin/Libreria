@@ -280,12 +280,12 @@ export default function CrearLibro({ onSubmit }: CrearLibroProps): JSX.Element {
                 </div>
                 <button
                     type="submit"
-                    className="justify-center bg-indigo-800 hover:bg-indigo-900 text-zinc-300 font-bold py-3 px-4 rounded mt-6 transition duration-300"
+                    className="justify-center bg-indigo-800 hover:bg-indigo-900 text-white font-bold py-3 px-4 rounded mt-6 transition duration-300"
                 >
                     Crear libro
                 </button>
                 <Link href="/">
-                    <button className="mx-4 justify-center bg-red-800 hover:bg-red-900 text-zinc-300 font-bold py-3 px-4 rounded mt-6 transition duration-300">
+                    <button className="mx-4 justify-center bg-red-800 hover:bg-red-900 text-white font-bold py-3 px-4 rounded mt-6 transition duration-300">
                         Cancelar
                     </button>
                 </Link>
