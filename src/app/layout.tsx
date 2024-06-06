@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import Encabezado from "@/components/Encabezado";
 import { retrieve } from "@/lib/session";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default async function RootLayout({
             <body className={inter.className}>
                 <Encabezado user={user} />
                 {children}
+                <Footer />
             </body>
         </html>
     );
