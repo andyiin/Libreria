@@ -20,17 +20,26 @@ export default function Encabezado(props: { user: InfoUser | undefined }) {
                     </h1>
                 </Link>
             </div>
-            <nav className="flex gap-4">
+            <nav className="flex gap-4 items-center">
                 {props.user && (
-                    <Menu user={props.user} />
+                    <>
+                        <p className="text-indigo-800 text-xl"><b>Bienvenido {props.user.name}</b></p>
+                        <Menu user={props.user} />
+                    </>
                 )}
                 {!props.user && (
-                    <> 
-                        <Link href="/login" className="bg-indigo-300 hover:bg-indigo-800 hover:text-white p-2 px-6 rounded-md transition duration-300">
+                    <>
+                        <Link
+                            href="/login"
+                            className="bg-indigo-300 hover:bg-indigo-800 hover:text-white p-2 px-6 rounded-md transition duration-300"
+                        >
                             Iniciar sesión
                         </Link>
 
-                        <Link href="/register" className="bg-indigo-300 hover:bg-indigo-800 hover:text-white p-2 px-6 rounded-md transition duration-300">
+                        <Link
+                            href="/register"
+                            className="bg-indigo-300 hover:bg-indigo-800 hover:text-white p-2 px-6 rounded-md transition duration-300"
+                        >
                             Crear cuenta
                         </Link>
                     </>

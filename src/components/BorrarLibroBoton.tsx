@@ -25,7 +25,7 @@ export default function BorrarLibroBoton({ id, user }: BorrarLibroBotonProps) {
             {user?.rol === "admin" && (
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
-                        <button className="mt-2 mx-4 px-4 py-2 rounded bg-red-800 hover:bg-red-900 text-zinc-300 text-lg transition duration-300">
+                        <button className="mt-2 mx-4 px-4 py-2 rounded bg-red-800 hover:bg-red-900 text-white text-lg transition duration-300">
                             Borrar libro
                         </button>
                     </AlertDialogTrigger>

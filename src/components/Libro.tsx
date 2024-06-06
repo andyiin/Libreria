@@ -26,7 +26,7 @@ export default function Libro(props: { libro: WithId<LibroModel> }) {
                 </div>
                 <p className="text-zinc-600">{props.libro.author}</p>
                 <div className="flex">
-                    <button className="rounded px-3 py-0.5 bg-indigo-800 hover:bg-indigo-900 text-zinc-300 transition duration-300">
+                    <button className="rounded px-3 py-0.5 bg-indigo-800 hover:bg-indigo-900 text-white transition duration-300">
                         Añadir
                     </button>
                 </div>

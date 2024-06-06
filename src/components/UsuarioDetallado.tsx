@@ -14,12 +14,12 @@ export default function UsuarioDetallado(props: {
                 </h1>
                 <ul>
                     <li className="mb-2">
-                        <b>Nombre: </b>
-                        {props.usuario.name}
-                    </li>
-                    <li className="mb-2">
                         <b>Email: </b>
                         {props.usuario.mail}
+                    </li>
+                    <li className="mb-2">
+                        <b>Nombre: </b>
+                        {props.usuario.name}
                     </li>
                     <li className="mb-2">
                         <b>Número de teléfono: </b>
@@ -44,13 +44,13 @@ export default function UsuarioDetallado(props: {
                     </li>
                 </ul>
                 <Link href={`/profile/${props.id}/edit-profile`}>
-                    <button className="px-4 py-2 rounded bg-emerald-800 hover:bg-emerald-900 text-zinc-300 text-lg transition duration-300">
+                    <button className="px-4 py-2 rounded bg-emerald-800 hover:bg-emerald-900 text-white text-lg transition duration-300">
                         Editar
                     </button>
                 </Link>
                 <br/>
                 <Link href={`/profile/${props.id}/edit-password`}>
-                    <button className="px-4 py-2 mt-2 rounded bg-indigo-800 hover:bg-indigo-900 text-zinc-300 text-lg transition duration-300">
+                    <button className="px-4 py-2 mt-2 rounded bg-indigo-800 hover:bg-indigo-900 text-white text-lg transition duration-300">
                         Cambiar contraseña
                     </button>
                 </Link>
