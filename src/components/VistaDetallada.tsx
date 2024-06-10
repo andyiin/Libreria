@@ -10,6 +10,7 @@ export default function VistaDetallada(props: {
     libro: WithId<Libro>;
     librosAutor: WithId<Libro>[];
 }) {
+    console.log(JSON.stringify(props.libro));
     return (
         <div className="bg-zinc-300 text-black py-10 px-20 max-[768px]:px-0 ">
             <div className="flex flex-col lg:flex-row">
