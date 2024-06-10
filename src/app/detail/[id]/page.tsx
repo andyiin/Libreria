@@ -28,6 +28,8 @@ async function getLibroYLibrosAutor(id: string) {
             .find({ author: libro.author, _id: { $ne: libro._id } })
             .sort({ publication: -1 })
             .toArray();
+
+        libro.price = parseFloat(libro.price.toString());
         librosAutor.forEach((libro) => {
             libro.price = parseFloat(libro.price.toString());
         });

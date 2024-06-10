@@ -1,5 +1,8 @@
 import { retrieveCart } from "@/lib/session";
 import DeleteCart from "@/components/DeleteCart";
+import DeleteItemFromCart from "@/components/DeleteItemFromCart";
+import IncreaseQuantityCart from "@/components/IncreaseQuantityCart";
+import DecreaseQuantityCart from "@/components/DecreaseQuantityCart";
 
 const getCart = async () => {
     return await retrieveCart();
@@ -19,10 +22,12 @@ export default async function ListadoCarrito() {
                         <p>{product.name}</p>
                         <p>{product.price}€</p>
                     </li>
-                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
-                        Borrar del carrito
-                    </button>
-                    <input type="number" defaultValue={product.quantity} className="w-10" />
+                    <DeleteItemFromCart id={product._id} />
+                        <IncreaseQuantityCart id={product._id}/>
+                    <p>
+                        {product.quantity}
+                    </p>
+                        <DecreaseQuantityCart id={product._id}/>
                     </>
                 ))}
             </ul>

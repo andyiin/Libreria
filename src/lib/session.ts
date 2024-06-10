@@ -113,6 +113,31 @@ export async function retrieveCart() {
 };
 
 /**
+ * Increase or decrease the quantity of an item in the cart in 1 unit.
+ * @param id The id of the item to edit.
+ * @param operation The operation to perform: 1 to increase, -1 to decrease.
+ */
+export async function editQuantityCart(id: string, operation: number) {
+    const cart = await retrieveCart();
+    const index = cart.findIndex((item: any) => item._id === id);
+
+    if (index !== -1) {
+        cart[index].quantity += operation;
+        if (cart[index].quantity !== 0) {
+            cookies().set("cart", JSON.stringify(cart), {
+                httpOnly: true,
+                secure: true,
+                expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                sameSite: "lax",
+                path: "/"
+            });
+        }
+    } else {
+        console.error("Item not found in cart.");
+    }
+};
+
+/**
  * Retrieves the value of a cookie and decrypts it.
  * 
  * @param name The name of the cookie to retrieve.
@@ -146,9 +171,9 @@ export async function deleteCart() {
 /**
  * Deletes a specific item from the cart.
  */
-export async function deleteItemFromCart() {
+export async function deleteItemFromCart(id: string) {
     const cart = await retrieveCart();
-    const newCart = cart.filter((item: any) => item._id !== "id");
+    const newCart = cart.filter((item: any) => item._id !== id);
     cookies().set("cart", JSON.stringify(newCart), {
         httpOnly: true,
         secure: true,
