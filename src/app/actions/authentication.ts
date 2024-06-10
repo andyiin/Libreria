@@ -6,6 +6,7 @@ import User from "@/lib/models/usuario";
 import getDb from "@/lib/mongodb";
 import { store } from "@/lib/session";
 import { LoginSchema, RegisterSchema, FormState } from "@/lib/definitions";
+import { OptionalId } from "mongodb";
 
 /**
  * Retrieves a user from the database by their mail.
@@ -46,7 +47,7 @@ export async function login(_:any, formData: FormData) : Promise<FormState> {
     if (!user.visible)
         return { errors: { email: ["Cuenta deshabilitada. Ponte en contacto con un administrador"] } };
     
-    await store( "user", { _id: user._id, mail: user.mail, rol: user.rol, active: user.active, visible: user.visible, city: user.city, name: user.name, numphone: user.numphone, postalcode: user.postalcode, street: user.street });
+    await store( "user", { _id: user._id, mail: user.mail, rol: user.rol, active: user.active, visible: user.visible, city: user.city, name: user.name, numphone: user.numphone, postalcode: user.postalcode, street: user.street, card: user.card });
     
     redirect("/");
 };
@@ -78,7 +79,7 @@ export async function register(_:any, formData: FormData) : Promise<FormState> {
 
     const password = await bcrypt.hash(dataForm.password, 10);
 
-    await getDb().then(db => db.collection<User>("users").insertOne({ mail: dataForm.email, password, rol: "user", active: true, visible: true }));
+    await getDb().then(db => db.collection<OptionalId<User>>("users").insertOne({ mail: dataForm.email, password, rol: "user", active: true, visible: true, card: null, city: "", name: "", numphone: 0, postalcode: 0, street: ""}));
 
     redirect("/");
 };
