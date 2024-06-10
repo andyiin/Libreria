@@ -36,6 +36,7 @@ async function updatePerfil(formData: FormData) {
         street: formData.get("street")?.toString(),
         city: formData.get("city")?.toString(),
         postalcode: postalcode ? +postalcode : undefined,
+        rol: formData.get("rol")?.toString(),
     }
 
     await db

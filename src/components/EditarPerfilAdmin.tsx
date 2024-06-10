@@ -1,8 +1,8 @@
-'use client';
-import React, { useState } from 'react';
-import { WithId } from 'mongodb';
-import Usuario from '@/lib/models/usuario';
-import Link from 'next/link';
+"use client";
+import React, { useState } from "react";
+import { WithId } from "mongodb";
+import Usuario from "@/lib/models/usuario";
+import Link from "next/link";
 
 interface EditarPerfilProps {
     perfil: WithId<Usuario>;
@@ -57,7 +57,7 @@ export default function EditarPerfilAdmin({
                 onSubmit={(e) => {
                     e.preventDefault();
                     const formData = new FormData(e.target as HTMLFormElement);
-                    formData.set('visible', visible.toString());
+                    formData.set("visible", visible.toString());
                     onSubmit(formData);
                 }}
                 className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-md"
@@ -65,23 +65,6 @@ export default function EditarPerfilAdmin({
             >
                 <input type="hidden" name="id" value={perfil._id.toString()} />
                 <div className="flex flex-col">
-                    {/* Nombre */}
-                    <div>
-                        <label
-                            htmlFor="name"
-                            className="block text-sm font-medium text-indigo-800"
-                        >
-                            Nombre
-                        </label>
-                        <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            defaultValue={perfil.name}
-                            className="w-full p-3 border border-gray-300 rounded mt-1"
-                        />
-                    </div>
-
                     {/* Email */}
                     <div>
                         <label
@@ -101,6 +84,23 @@ export default function EditarPerfilAdmin({
                         />
                     </div>
 
+                    {/* Nombre */}
+                    <div>
+                        <label
+                            htmlFor="name"
+                            className="block text-sm font-medium text-indigo-800"
+                        >
+                            Nombre
+                        </label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            defaultValue={perfil.name}
+                            className="w-full p-3 border border-gray-300 rounded mt-1"
+                        />
+                    </div>
+
                     {/* Número de teléfono */}
                     <div>
                         <label
@@ -117,24 +117,6 @@ export default function EditarPerfilAdmin({
                             defaultValue={perfil.numphone}
                             className="w-full p-3 border border-gray-300 rounded mt-1"
                             onChange={handleNumPhoneInput}
-                        />
-                    </div>
-
-                    {/* Visibilidad */}
-                    <div>
-                        <label
-                            htmlFor="visible"
-                            className="block text-sm font-medium text-indigo-800"
-                        >
-                            Cuenta activa
-                        </label>
-                        <input
-                            type="checkbox"
-                            name="visible"
-                            id="visible"
-                            checked={visible}
-                            onChange={handleCheckboxChange}
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                         />
                     </div>
 
@@ -189,15 +171,61 @@ export default function EditarPerfilAdmin({
                             onChange={handleCodePostalInput}
                         />
                     </div>
+
+                    {/* Rol */}
+                    <div>
+                        <label
+                            htmlFor="rol"
+                            className="block text-sm font-medium text-indigo-800"
+                        >
+                            Rol
+                        </label>
+                        <select
+                            name="rol"
+                            id="rol"
+                            defaultValue={perfil.rol}
+                            className="w-full p-3 border border-gray-300 rounded mt-1"
+                        >
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+
+                    {/* Visibilidad */}
+                    <div>
+                        <br />
+                        <p>
+                            <b>
+                                Si quieres deshabilitar esta cuenta pulsa el
+                                checkbox
+                            </b>
+                        </p>
+                        <div className="flex items-center space-x-2">
+                            <label
+                                htmlFor="visible"
+                                className="block text-sm font-medium text-indigo-800"
+                            >
+                                Cuenta activa
+                            </label>
+                            <input
+                                type="checkbox"
+                                name="visible"
+                                id="visible"
+                                checked={visible}
+                                onChange={handleCheckboxChange}
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                            />
+                        </div>
+                    </div>
                 </div>
                 <button
                     type="submit"
-                    className="justify-center bg-indigo-800 hover:bg-indigo-900 text-zinc-300 font-bold py-3 px-4 rounded mt-6 transition duration-300"
+                    className="justify-center bg-indigo-800 hover:bg-indigo-900 text-white font-bold py-3 px-4 rounded mt-6 transition duration-300"
                 >
                     Actualizar Perfil
                 </button>
                 <Link href={`../../dashboard`}>
-                    <button className="mx-4 justify-center bg-red-800 hover:bg-red-900 text-zinc-300 font-bold py-3 px-4 rounded mt-6 transition duration-300">
+                    <button className="mx-4 justify-center bg-red-800 hover:bg-red-900 text-white font-bold py-3 px-4 rounded mt-6 transition duration-300">
                         Cancelar
                     </button>
                 </Link>

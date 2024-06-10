@@ -45,7 +45,7 @@ export async function login(_:any, formData: FormData) : Promise<FormState> {
         return { errors: { password: ["Contraseña incorrecta"] } };
 
     if (!user.visible)
-        return { errors: { email: ["Cuenta suspendida, ponte en contacto con un administrador"] } };
+        return { errors: { email: ["Cuenta deshabilitada. Ponte en contacto con un administrador"] } };
     
     await store( "user", { _id: user._id, mail: user.mail, rol: user.rol, active: user.active, visible: user.visible, city: user.city, name: user.name, numphone: user.numphone, postalcode: user.postalcode, street: user.street, card: user.card });
     

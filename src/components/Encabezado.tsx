@@ -40,15 +40,24 @@ export default async function Encabezado(props: { user: InfoUser | undefined }) 
                     </Link>
                 </div>
                 {props.user && (
-                    <Menu user={props.user} />
+                    <>
+                        <p className="text-indigo-800 text-xl"><b>Bienvenido {props.user.name}</b></p>
+                        <Menu user={props.user} />
+                    </>
                 )}
                 {!props.user && (
-                    <> 
-                        <Link href="/login" className="bg-zinc-300 hover:bg-zinc-400 px-2 py-1 rounded-md ring-2 ring-indigo-800">
+                    <>
+                        <Link
+                            href="/login"
+                            className="bg-indigo-300 hover:bg-indigo-800 hover:text-white p-2 px-6 rounded-md transition duration-300"
+                        >
                             Iniciar sesión
                         </Link>
 
-                        <Link href="/register" className="bg-zinc-300 hover:bg-zinc-400 px-2 py-1 rounded-md ring-2 ring-indigo-800">
+                        <Link
+                            href="/register"
+                            className="bg-indigo-300 hover:bg-indigo-800 hover:text-white p-2 px-6 rounded-md transition duration-300"
+                        >
                             Crear cuenta
                         </Link>
                     </>
