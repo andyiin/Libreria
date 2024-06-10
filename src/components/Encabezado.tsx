@@ -23,22 +23,20 @@ export default async function Encabezado(props: { user: InfoUser | undefined }) 
                     </h1>
                 </Link>
             </div>
-            <nav className="flex gap-4">
-                <div className="flex gap-4">
-                    <Link href="/cart" className="px-2 py-1 flex items-center">
-                        <Image
-                            src="/cart.svg"
-                            alt="Carrito"
-                            width={30}
-                            height={30}
-                            />
-                            {cart?.length > 0 && (
-                                <span className="bg-red-500 text-xs text-white rounded-full px-0.5 py-0.25 opacity-75">
-                                    {cart.length}
-                                </span>
-                            )}
-                    </Link>
-                </div>
+            <nav className="flex gap-4 items-center">
+                <Link href="/cart" className="px-2 py-1 flex items-center">
+                    <Image
+                        src="/cart.svg"
+                        alt="Carrito"
+                        width={30}
+                        height={30}
+                        />
+                        {cart?.length > 0 && (
+                            <span className="bg-red-500 text-xs text-white rounded-full px-0.5 py-0.25 opacity-75">
+                                {cart.length}
+                            </span>
+                        )}
+                </Link>
                 {props.user && (
                     <>
                         <p className="text-indigo-800 text-xl"><b>Bienvenido {props.user.name}</b></p>
