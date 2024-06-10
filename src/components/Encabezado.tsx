@@ -25,16 +25,18 @@ export default async function Encabezado(props: { user: InfoUser | undefined }) 
             </div>
             <nav className="flex gap-4">
                 <div className="flex gap-4">
-                    <Link href="/cart" className="px-2 py-1">
+                    <Link href="/cart" className="px-2 py-1 flex items-center">
                         <Image
                             src="/cart.svg"
                             alt="Carrito"
                             width={30}
                             height={30}
-                        />
-                        {cart?.length > 0 && (
-                            <span className="absolute inline-flex h-2 w-2 rounded-full bg-red-400 opacity-75">{cart.length}</span>
-                        )}
+                            />
+                            {cart?.length > 0 && (
+                                <span className="bg-red-500 text-xs text-white rounded-full px-0.5 py-0.25 opacity-75">
+                                    {cart.length}
+                                </span>
+                            )}
                     </Link>
                 </div>
                 {props.user && (
@@ -54,4 +56,4 @@ export default async function Encabezado(props: { user: InfoUser | undefined }) 
             </nav>
         </header>
     );
-}
+};

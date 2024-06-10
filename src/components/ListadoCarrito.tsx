@@ -32,6 +32,7 @@ export default async function ListadoCarrito() {
                 ))}
             </ul>
             <DeleteCart />
+            <h2>Total: {cart?.reduce((acc: number, product: any) => acc + product.price * product.quantity, 0)}€</h2>
         </div>
     );
 };
