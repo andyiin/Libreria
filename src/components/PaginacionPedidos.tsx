@@ -1,31 +1,33 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { getUsuarios } from "@/app/dashboard/getUsuarios";
-import { WithId } from "mongodb";
-import Usuario from "@/lib/models/usuario";
-import ListaUsuario from "./ListaUsuario";
+import { getPedidos } from "@/app/dashboard/getPedidos";
+import { ObjectId, WithId } from "mongodb";
+import Pedido from "@/lib/models/pedido";
+import ListaPedido from "./ListaPedido";
 
-export const PaginacionUsuarios = () => {
+export const PaginacionPedidos = (props: {
+    userId? : ObjectId;
+}) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [usuarios, setUsuarios] = useState<WithId<Usuario>[]>([]);
+    const [pedidos, setPedidos] = useState<WithId<Pedido>[]>([]);
     const [totalPages, setTotalPages] = useState(0);
-    const usuariosPerPage = 8;
+    const pedidosPerPage = 8;
 
     useEffect(() => {
-        const fetchUsuarios = async () => {
-            const { usuarios: fetchedUsuarios, totalUsuarios } = await getUsuarios(
+        const fetchPedidos = async () => {
+            const { pedidos: fetchedPedidos, totalPedidos } = await getPedidos(
                 currentPage,
-                usuariosPerPage
+                pedidosPerPage, props.userId
             );
-            setUsuarios(fetchedUsuarios);
-            setTotalPages(Math.ceil(totalUsuarios / usuariosPerPage));
+            setPedidos(fetchedPedidos);
+            setTotalPages(Math.ceil(totalPedidos / pedidosPerPage));
         };
-        fetchUsuarios();
-    }, [currentPage]);
+        fetchPedidos();
+    }, [currentPage, props.userId]);
 
     return (
         <>
-            <ListaUsuario usuarios={usuarios} />
+            <ListaPedido pedidos={pedidos} />
             <div className="flex flex-col items-center justify-center pb-6">
                 <div className="flex flex-row items-center justify-center pb-4">
                     {/* solo sale anterior y siguiente si es posible esas opciones */}
