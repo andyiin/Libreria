@@ -1,0 +1,22 @@
+{
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "prettier.semi": true,
+    "prettier.singleQuote": false,
+    "prettier.bracketSpacing": true,
+    "prettier.bracketSameLine": false,
+    "workbench.colorCustomizations": {
+        "editor.background": "#18181b",
+        "editor.foreground": "#d4d4d8",
+        "activityBar.background": "#3730a3",
+        "sideBar.background": "#18181b",
+
+        "sideBar.foreground": "#d4d4d8",
+        "titleBar.activeBackground": "#3730a3",
+        "titleBar.activeForeground": "#d4d4d8",
+        "statusBar.background": "#3730a3",
+        "statusBar.foreground": "#d4d4d8",
+        "terminal.background": "#18181b",
+        "terminal.foreground": "#d4d4d8"
+    }
+}
