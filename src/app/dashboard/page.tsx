@@ -1,6 +1,8 @@
 import { retrieve } from "@/lib/session";
 import { PaginacionUsuarios } from "@/components/PaginacionUsuarios";
 import BuscadorUsuarios from "@/components/BuscadorUsuarios";
+import BuscadorPedidos from "@/components/BuscadorPedidos";
+import { PaginacionPedidosAdmin } from "@/components/PaginacionPedidosAdmin";
 
 async function getUser() {
     return await retrieve("user");
@@ -19,6 +21,15 @@ const Page = async () => {
                 <BuscadorUsuarios />
             </div>
             <PaginacionUsuarios />
+
+            <h1 className="text-4xl text-indigo-800 font-bold pt-6 text-center">
+                Gestión pedidos
+            </h1>
+            <br/>
+            <div className="flex justify-center">
+                <BuscadorPedidos />
+            </div>
+            <PaginacionPedidosAdmin />
         </div>
     );
 };
