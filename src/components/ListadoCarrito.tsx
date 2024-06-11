@@ -14,7 +14,7 @@ export default async function ListadoCarrito() {
  
     return (
         <div className="container max-w-md mx-auto">
-            <h2>Carrito</h2>
+            <h1 className="text-4xl text-indigo-800 font-bold pt-6 text-center">Carrito</h1>
             <ul className="list-disc list-inside flex flex-wrap">
                 {cart?.map((product: any) => (
                     <>
