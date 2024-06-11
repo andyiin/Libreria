@@ -5,7 +5,7 @@ import { retrieve } from "@/lib/session"
 export async function middleware(request: NextRequest) {
     const user = await retrieve("user");
 
-    const protectedRoutes = ["/dashboard", "/logout", "/profile", "/create-book"];
+    const protectedRoutes = ["/dashboard", "/logout", "/profile", "/create-book", "/orders"];
     const publicRoutes = ["/login", "/register"];
 
     if (protectedRoutes.some(route => request.nextUrl.pathname.startsWith(route)) && !user)
@@ -21,5 +21,5 @@ export async function middleware(request: NextRequest) {
 };
 
 export const config = {
-    matcher: ["/login", "/register", "/dashboard", "/logout", "/profile/:path*", "/create-book"]
+    matcher: ["/login", "/register", "/dashboard/:path*", "/logout", "/profile/:path*", "/create-book", "/orders/:path*"]
 };
