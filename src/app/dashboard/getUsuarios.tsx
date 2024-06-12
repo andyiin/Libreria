@@ -2,7 +2,7 @@
 import Usuario from "@/lib/models/usuario";
 import getDb from "@/lib/mongodb";
 
-export async function getUsuarios(page: number = 1, usuariosPerPage: number = 12) {
+export async function getUsuarios(page: number = 1, usuariosPerPage: number = 8) {
     const db = await getDb();
     const totalUsuarios = await db.collection<Usuario>("users").countDocuments();
     const skip = (page - 1) * usuariosPerPage;
