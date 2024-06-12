@@ -11,13 +11,13 @@ export default function DecreaseQuantityCart({ id }: { id: string }) {
     return (
         <form action={action} className="text-center">
             <button
-                className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                className="flex items-center justify-center w-10 h-10 bg-red-500 hover:bg-red-700 text-white font-bold rounded cursor-pointer"
                 type="submit">
                 <Image
                     src="/minus.svg"
                     alt="Quitar unidad"
-                    width={30}
-                    height={30}
+                    width={20}
+                    height={20}
                 />
             </button>
         </form>

@@ -11,13 +11,13 @@ export default function IncreaseQuantityCart({ id }: { id: string }) {
     return (
         <form action={action} className="text-center">
             <button
-                className="flex items-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                className="flex items-center justify-center w-10 h-10 bg-green-500 hover:bg-green-700 text-white font-bold rounded cursor-pointer"
                 type="submit">
                 <Image
                     src="/add.svg"
                     alt="Añadir unidad"
-                    width={30}
-                    height={30}
+                    width={20}
+                    height={20}
                 />
             </button>
         </form>

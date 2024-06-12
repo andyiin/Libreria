@@ -11,17 +11,18 @@ const action = async () => {
 
 export default function DeleteCart() {
     return (
-        <form action={action} className="text-center">
+        <form action={action} className="text-center inline-block">
             <button
-                className="flex items-center justify-center w-50 block px-4 py-2 text-sm text-gray-700 bg-red hover:bg-gray-200"
+                className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
                 type="submit">
                 <Image
                     src="/trash.svg"
                     alt="Borrar carrito"
-                    width={30}
-                    height={30}            
+                    width={20}
+                    height={20}
+                    className="w-6 h-6"
                 />
-                Borrar carrito
+                <span className="ml-2">Borrar carrito</span>
             </button>
         </form>
     );
