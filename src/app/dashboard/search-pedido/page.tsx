@@ -15,7 +15,14 @@ async function getPedidos(busqueda: string) {
         })
         .toArray();
 
-    return pedidos;
+    const pedidosSerializables = pedidos.map((pedido) => ({
+        ...pedido,
+        _id: pedido._id.toString(),
+        user: pedido.user.toString(),
+        totalprice: pedido.totalprice.toString(),
+    }));
+
+    return pedidosSerializables as unknown as Pedido[];
 }
 
 const Page = async ({

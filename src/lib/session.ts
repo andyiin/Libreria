@@ -2,11 +2,9 @@
 
 import "server-only";
 import { cookies } from "next/headers";
-import getDb from "@/lib/mongodb";
-import { ObjectId, OptionalId } from "mongodb";
 import { SignJWT, jwtVerify } from "jose";
 import { InfoUser } from "./models/usuario";
-import Pedido from "./models/pedido";
+import getDb from "./mongodb";
 
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
@@ -63,84 +61,6 @@ export async function store<Field extends CookieTypeField>(name: Field, sessionD
 };
 
 /**
- * Stores the session data in the cart.
- * 
- * @param sessionData - The session data to be stored in the cart.
- * @returns A promise that resolves when the session data is successfully stored in the cart.
- */
-export async function storeInCart<Cart>(sessionData: Cart) {
-    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-
-    if (cookies().get("cart")) {
-        const cart = await retrieveCart();
-        const index = cart.findIndex((item: any) => item._id === sessionData._id);
-
-        if (index !== -1)
-            cart[index].quantity += 1;
-        else
-            cart.push(sessionData);
-
-        cookies().set("cart", JSON.stringify(cart), {
-            httpOnly: true,
-            secure: true,
-            expires: expiresAt,
-            sameSite: "lax",
-            path: "/"
-        });
-    } else {
-        cookies().set("cart", JSON.stringify([sessionData]), {
-            httpOnly: true,
-            secure: true,
-            expires: expiresAt,
-            sameSite: "lax",
-            path: "/"
-        });
-    }
-};
-
-/**
- * Retrieves the cart from the cookies.
- * @returns The cart object if it exists, otherwise undefined.
- */
-export async function retrieveCart() {
-    const cart = cookies().get("cart");
-    if (!cart) return undefined;
-    
-    try {
-        const value = JSON.parse(cart.value);
-        return value;
-    } catch (error) {
-        console.error("Error parsing cookie value:", error);
-        return undefined;
-    }
-};
-
-/**
- * Increase or decrease the quantity of an item in the cart in 1 unit.
- * @param id The id of the item to edit.
- * @param operation The operation to perform: 1 to increase, -1 to decrease.
- */
-export async function editQuantityCart(id: string, operation: number) {
-    const cart = await retrieveCart();
-    const index = cart.findIndex((item: any) => item._id === id);
-
-    if (index !== -1) {
-        cart[index].quantity += operation;
-        if (cart[index].quantity !== 0) {
-            cookies().set("cart", JSON.stringify(cart), {
-                httpOnly: true,
-                secure: true,
-                expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-                sameSite: "lax",
-                path: "/"
-            });
-        }
-    } else {
-        console.error("Item not found in cart.");
-    }
-};
-
-/**
  * Retrieves the value of a cookie and decrypts it.
  * 
  * @param name The name of the cookie to retrieve.
@@ -167,45 +87,26 @@ export async function deleteCookie<Field extends CookieTypeField>(name: Field) {
     cookies().delete(name);
 };
 
-export async function deleteCart() {
-    cookies().delete("cart");
-};
+export async function saveOrder(form: any) {
+    const db = await getDb();
+    const collection = db.collection("orders");
+    const order = {
+        user: form.user,
+        name: form.name.trim(),
+        totalprice: form.cart.reduce((acc: number, item: any) => acc + parseFloat(item.price) * item.quantity, 0),
+        email: form.email,
+        numphone: form.phone,
+        address: form.street,
+        city: form.city,
+        postalcode: form.postalcode,
+        date: new Date(),
+        state: "Pendiente",
+        products: form.cart
+    };
+    await collection.insertOne(order);
 
-/**
- * Deletes a specific item from the cart.
- */
-export async function deleteItemFromCart(id: string) {
-    const cart = await retrieveCart();
-    const newCart = cart.filter((item: any) => item._id !== id);
-    cookies().set("cart", JSON.stringify(newCart), {
-        httpOnly: true,
-        secure: true,
-        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-        sameSite: "lax",
-        path: "/"
+    const productsCollection = db.collection("products");
+    form.cart.forEach(async (item: any) => {
+        await productsCollection.updateOne({ _id: item._id }, { $inc: { stock: -item.quantity } });
     });
 };
-
-// export async function saveOrder(form: any) {
-//     const db = await getDb();
-//     const collection = db.collection("orders");
-//     const order = {
-//         user: new ObjectId(form.user),
-//         name: form.name.trim(),
-//         totalprice: form.cart.reduce((acc: number, item: any) => acc + parseFloat(item.price) * item.quantity, 0),
-//         email: form.email,
-//         numphone: form.phone,
-//         address: form.street,
-//         city: form.city,
-//         postalcode: form.postalcode,
-//         date: new Date(),
-//         state: "Pendiente",
-//         products: form.cart
-//     };
-//     await collection.insertOne(order);
-
-//     const productsCollection = db.collection("products");
-//     form.cart.forEach(async (item: any) => {
-//         await productsCollection.updateOne({ _id: item._id }, { $inc: { stock: -item.quantity } });
-//     });
-// };

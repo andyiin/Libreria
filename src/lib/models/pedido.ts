@@ -1,6 +1,6 @@
-import { Decimal128, ObjectId } from "mongodb";
+import type { Decimal128, ObjectId } from "mongodb";
 
-type Products = {
+export type Product = {
     _id: ObjectId;
     name: string,
     price: number;
@@ -19,9 +19,10 @@ export default interface Pedido {
     postalcode: number;
     date: Date;
     state: "Pendiente" | "Aceptado" | "Cancelado";
-    products: Products[];
+    products: Product[];
 };
 
-export interface Cart extends Omit<Pedido, "email" | "numphone" | "address" | "city" | "postalcode" | "state"> {
-    products: Products[];
+export interface Cart  {
+    products: Product[];
+    totalPrice: number;
 };

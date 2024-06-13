@@ -1,11 +1,16 @@
 "use client";
 
+import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
-import { handleDeleteCartAction } from "@/lib/action";
+import { deleteCart } from "@/lib/cart";
 
-export default function DeleteCart() {
+export default function DeleteCart({ stateChange }: { stateChange: Dispatch<SetStateAction<number>> }) {
     return (
-        <form action={handleDeleteCartAction} className="text-center inline-block">
+        <form onSubmit={(event) => {
+            event.preventDefault();
+            deleteCart();
+            stateChange(d => ++d);
+        } } className="text-center inline-block">
             <button
                 className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
                 type="submit">

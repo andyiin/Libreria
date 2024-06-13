@@ -45,9 +45,6 @@ export default function Login() {
                         Iniciar sesión
                     </button>
                     <div className="flex flex-col items-end font-bold text-sm text-indigo-800 hover:text-indigo-900">
-                        <Link href="/reset-password">
-                            ¿Has olvidado la contraseña?
-                        </Link>
                         <Link href="/register">
                             Crear cuenta
                         </Link>

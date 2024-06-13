@@ -3,7 +3,7 @@
 import React from "react";
 import { WithId } from "mongodb";
 import LibroModel from "@/lib/models/libro";
-import { storeInCart } from "@/lib/session";
+import { storeInCart } from "@/lib/cart";
 
 export default function AnnadirLibro(props: { libro: WithId<LibroModel> }) {
     const hoy = new Date();
@@ -26,7 +26,7 @@ export default function AnnadirLibro(props: { libro: WithId<LibroModel> }) {
                         await storeInCart({
                             _id: props.libro._id,
                             name: props.libro.name,
-                            price: props.libro.price,
+                            price: parseFloat(props.libro.price),
                             quantity: 1,
                         });
                     }}

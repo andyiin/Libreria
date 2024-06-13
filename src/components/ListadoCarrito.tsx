@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-// import { saveOrder } from "@/lib/server/saveOrder";
-import { retrieveCart, saveOrder } from "@/lib/session";
-// import { retrieveCart } from "@/lib/session";
+import { useState, useEffect, useMemo } from "react";
+import { retrieveCart } from "@/lib/cart";
 import UsuarioModel from "@/lib/models/usuario";
 import { ShippingSchema, CardSchema } from "@/lib/definitions";
 import DeleteCart from "@/components/DeleteCart";
@@ -21,13 +19,9 @@ import {
     AlertDialogCancel,
     AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-
-const getCart = async () => {
-    return await retrieveCart();
-};
+import { saveOrder } from "@/lib/session";
 
 export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
-    const [cart, setCart] = useState<any[]>([]);
     const [form, setForm] = useState({
         name: user?.name || "",
         email: user?.mail || "",
@@ -41,15 +35,9 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
         cardCVV: ""
     });
     const [errors, setErrors] = useState<any>({});
+    const [state, setState] = useState(0);
+    const cart = useMemo(() => retrieveCart(), [state]);
 
-    useEffect(() => {
-        const fetchCart = async () => {
-            const cartData = await getCart();
-            setCart(cartData);
-        };
-
-        fetchCart();
-    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -62,7 +50,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
         const shippingValidation = ShippingSchema.safeParse({
             name: form.name,
             email: form.email,
-            numphone: form.phone,
+            numphone: form.phone.toString(),
             street: form.street,
             city: form.city,
             postalcode: form.postalcode.toString(),
@@ -88,6 +76,8 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
         setErrors({});
 
         try {
+            // TODO borrar carrito
+            
             await saveOrder({ ...form, cart, user: user._id });
             alert("Compra realizada con éxito!");
         } catch (error) {
@@ -228,7 +218,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
             <div className="lg:w-1/2 mt-8 lg:mt-0">
                 <h2 className="text-4xl text-indigo-800 font-bold pt-6 text-center lg:text-left">Carrito</h2>
                 <ul className="space-y-4 mt-6">
-                    {cart?.map((product: any) => (
+                    {cart?.products.map((product: any) => (
                         <li key={product._id} className="flex flex-col md:flex-row items-center justify-between bg-white p-4 rounded-lg shadow-md">
                             <div className="flex items-center space-x-4 flex-grow">
                                 <div className="flex flex-col p-1 flex-grow overflow-hidden">
@@ -237,19 +227,19 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                                 </div>
                             </div>
                             <div className="flex items-center space-x-2 mt-4 md:mt-0">
-                                <DecreaseQuantityCart id={product._id} />
+                                <DecreaseQuantityCart id={product._id} stateChanged={setState} />
                                 <p className="text-lg">{product.quantity}</p>
-                                <IncreaseQuantityCart id={product._id} />
-                                <DeleteItemFromCart id={product._id} />
+                                <IncreaseQuantityCart id={product._id} stateChanged={setState} />
+                                <DeleteItemFromCart id={product._id} stateChanged={setState} />
                             </div>
                         </li>
                     ))}
                 </ul>
                 <div className="mt-6 text-center flex justify-center space-x-4">
-                    <DeleteCart />
+                    <DeleteCart stateChange={setState} />
                 </div>
                 <h2 className="text-2xl font-semibold mt-4 text-center">
-                    Total: {cart?.reduce((acc: number, product: any) => acc + product.price * product.quantity, 0).toFixed(2)}€
+                    Total: {Intl.NumberFormat(undefined, { currency: 'EUR', style: 'currency' }).format(cart?.totalPrice ?? 0)}
                 </h2>
             </div>
         </div>
