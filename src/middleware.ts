@@ -14,7 +14,6 @@ export async function middleware(request: NextRequest) {
     if (publicRoutes.includes(request.nextUrl.pathname) && user)
         return NextResponse.redirect(new URL("/", request.url));
 
-    // solo un admin puede acceder al dashboard y a la creación de libros
     if ((request.nextUrl.pathname === "/dashboard" || request.nextUrl.pathname === "/create-book") && user?.rol !== "admin")
         return NextResponse.redirect(new URL("/", request.url));
 

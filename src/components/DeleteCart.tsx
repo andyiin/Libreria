@@ -1,17 +1,11 @@
+"use client";
+
 import Image from "next/image";
-import { deleteCart } from "@/lib/session";
-import { redirect } from "next/navigation";
-
-const action = async () => {
-    "use server";
-
-    deleteCart();
-    redirect("/");
-};
+import { handleDeleteCartAction } from "@/lib/action";
 
 export default function DeleteCart() {
     return (
-        <form action={action} className="text-center inline-block">
+        <form action={handleDeleteCartAction} className="text-center inline-block">
             <button
                 className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
                 type="submit">
@@ -22,8 +16,8 @@ export default function DeleteCart() {
                     height={20}
                     className="w-6 h-6"
                 />
-                <span className="ml-2">Borrar carrito</span>
+                <span className="ml-2">Vaciar carrito</span>
             </button>
         </form>
     );
-};
+}

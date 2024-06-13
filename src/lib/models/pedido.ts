@@ -22,7 +22,6 @@ export default interface Pedido {
     products: Products[];
 };
 
-// extendemos pedido para quitar campos no utiles en el carrito
 export interface Cart extends Omit<Pedido, "email" | "numphone" | "address" | "city" | "postalcode" | "state"> {
     products: Products[];
 };

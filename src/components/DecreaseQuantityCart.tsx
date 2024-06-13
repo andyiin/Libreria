@@ -1,15 +1,11 @@
+"use client";
+
+import { decreaseQuantityAction } from "@/lib/action";
 import Image from "next/image";
-import { editQuantityCart } from "@/lib/session";
 
 export default function DecreaseQuantityCart({ id }: { id: string }) {
-    const action = async () => {
-        "use server";
-
-        editQuantityCart(id, -1);
-    };
-
     return (
-        <form action={action} className="text-center">
+        <form action={decreaseQuantityAction} className="text-center">
             <button
                 className="flex items-center justify-center w-10 h-10 bg-red-500 hover:bg-red-700 text-white font-bold rounded cursor-pointer"
                 type="submit">
