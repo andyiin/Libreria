@@ -36,10 +36,12 @@ jobs:
         git push origin main
         
     - name: Instalar dependencias
-      run: npm install
-      working-directory: lastversion
+      run: |
+        cd /home/runner/work/202324daw-junio-libreria-andrea-andres/202324asir-junio-DOCKERS_DEVOPS-javilu/lastversion
+        npm install
 
     - name: Probar el docker
       run: |
+        cd /home/runner/work/202324daw-junio-libreria-andrea-andres/202324asir-junio-DOCKERS_DEVOPS-javilu
         docker-compose -f docker-compose.yml build
         docker-compose -f docker-compose.yml up -d
