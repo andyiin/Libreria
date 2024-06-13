@@ -80,7 +80,7 @@ jobs:
       uses: trstringer/manual-approval@v1
       with:
         secret: ${{ secrets.GIT_ACCESS_TOKEN }}
-        approvers: luigiLB800,Francisco-Ruiz-Ruiz,javilu
+        approvers: luigiLB800,Francisco-Ruiz-Ruiz,javilu,a19camoan,a19sotean
         minimum-approvals: 1
         issue-title: "Confirmar produccion"
         issue-body: "Confirmar manualmente tras realizar los test pertinentes que la apliccaion puede pasar a produccion"
