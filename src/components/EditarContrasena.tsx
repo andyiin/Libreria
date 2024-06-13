@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { WithId } from "mongodb";
 import Usuario from "@/lib/models/usuario";
 import Link from "next/link";
@@ -13,16 +13,26 @@ export default function EditarContrasena({
     perfil,
     onSubmit,
 }: EditarPerfilProps): JSX.Element {
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [error, setError] = useState(null);
+
+    const handleSubmit = (e: { preventDefault: () => void; target: HTMLFormElement; }) => {
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            setError("Las contraseñas no coinciden");
+        } else {
+            onSubmit(new FormData(e.target as HTMLFormElement));
+        }
+    };
+
     return (
         <div>
             <h1 className="text-4xl text-indigo-800 font-bold">
                 Editar contraseña
             </h1>
             <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    onSubmit(new FormData(e.target as HTMLFormElement));
-                }}
+                onSubmit={handleSubmit}
                 className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-md"
                 encType="multipart/form-data"
             >
@@ -65,16 +75,42 @@ export default function EditarContrasena({
                             name="password"
                             id="password"
                             required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full p-3 border border-gray-300 rounded mt-1"
+                        />
+                    </div>
+                    {/* Confirmar contraseña */}
+                    <div>
+                        <label
+                            htmlFor="confirmPassword"
+                            className="block text-sm font-medium text-indigo-800"
+                        >
+                            Confirmar contraseña
+                        </label>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            required
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             className="w-full p-3 border border-gray-300 rounded mt-1"
                         />
                     </div>
                 </div>
 
+                {error && (
+                    <p className="text-red-600 text-sm font-bold mt-2">
+                        {error}
+                    </p>
+                )}
+
                 <button
                     type="submit"
                     className="justify-center bg-indigo-800 hover:bg-indigo-900 text-white font-bold py-3 px-4 rounded mt-6 transition duration-300"
                 >
-                    Actualizar Perfil
+                    Actualizar Contraseña
                 </button>
                 <Link href={`./`}>
                     <button className="mx-4 justify-center bg-red-800 hover:bg-red-900 text-white font-bold py-3 px-4 rounded mt-6 transition duration-300">
