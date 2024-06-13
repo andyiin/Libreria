@@ -34,3 +34,12 @@ jobs:
         git branch -M main
         git remote set-url origin git@github.com:iesgrancapitan-proyectos/202324asir-junio-DOCKERS_DEVOPS-javilu.git
         git push origin main
+        
+    - name: Instalar dependencias
+      run: npm install
+      working-directory: lastversion
+
+    - name: Probar el docker
+      run: |
+        docker-compose -f docker-compose.yml build
+        docker-compose -f docker-compose.yml up -d
