@@ -20,13 +20,15 @@ export default function VistaDetallada(props: {
             <div className="flex justify-center">
                 {props.libro && <FichaTecnica libro={props.libro} />}
             </div>
-            <div className="flex justify-center">
-                <h2 className="text-xl">
-                    <b>Otros libros del autor</b>
-                </h2>
-            </div>
             <div>
-                {props.librosAutor && (
+                {props.librosAutor && props.librosAutor.length > 0 && (
+                    <div className="flex justify-center">
+                        <h2 className="text-xl">
+                            <b>Otros libros del autor</b>
+                        </h2>
+                    </div>
+                )}
+                {props.librosAutor && props.librosAutor.length > 0 && (
                     <ListaDeLibros libros={props.librosAutor} />
                 )}
             </div>

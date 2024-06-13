@@ -39,7 +39,10 @@ export default async function Encabezado(props: { user: InfoUser | undefined }) 
                 </Link>
                 {props.user && (
                     <>
-                        <p className="text-indigo-800 text-xl"><b>Bienvenido {props.user.name}</b></p>
+                        <p className="text-indigo-800 text-xl">
+                        {props.user.name ? <b>{props.user.name}</b> : <b>{props.user.mail}</b>}
+                        </p>
+                        
                         <Menu user={props.user} />
                     </>
                 )}
