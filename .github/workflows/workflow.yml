@@ -1,0 +1,29 @@
+name: Deploy App with Docker Compose
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Descargar repositorio
+      uses: actions/checkout@v3
+
+    - name: Instalar SSH Key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+
+    - name: Sincronizar repositorios
+      run: |
+        git config --global user.email "a21bumalu@iesgrancapitan.org"
+        git config --global user.name "lugiLB800"
+        pwd
+        ls
