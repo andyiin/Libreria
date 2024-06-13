@@ -45,3 +45,70 @@ jobs:
         cd /home/runner/work/202324daw-junio-libreria-andrea-andres/202324asir-junio-DOCKERS_DEVOPS-javilu
         docker-compose -f docker-compose.yml build
         docker-compose -f docker-compose.yml up -d
+        
+    - name: Despliegue por SSH
+      uses: nekiro/ssh-job@main
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        user: ${{ secrets.REMOTE_USER }}
+        port: 9013
+        command: |
+          bash -c 'if [ -d "/home/preprod/prueba/202324asir-junio-DOCKERS_DEVOPS-javilu/.git" ]; then cd /home/preprod/prueba/202324asir-junio-DOCKERS_DEVOPS-javilu && git config --global --add safe.directory /home/preprod/prueba/202324asir-junio-DOCKERS_DEVOPS-javilu && git pull origin main; else cd /home/preprod/prueba && git clone git@github.com:iesgrancapitan-proyectos/202324asir-junio-DOCKERS_DEVOPS-javilu.git; fi'
+          cd /home/preprod/prueba/202324asir-junio-DOCKERS_DEVOPS-javilu/lastversion
+          npm install
+          cd /home/preprod/prueba/202324asir-junio-DOCKERS_DEVOPS-javilu
+          docker-compose down --volumes --remove-orphans || true
+          fuser -k 25/tcp || true
+          docker-compose up --build -d
+          docker-compose logs
+
+    - name: Ver logs docker si falla
+      if: failure()
+      run: docker-compose logs
+
+    - name: Limpiar
+      run: docker-compose down
+
+  manual_approval:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Esperar aprobacion manual
+      uses: trstringer/manual-approval@v1
+      with:
+        secret: ${{ secrets.GIT_ACCESS_TOKEN }}
+        approvers: luigiLB800,Francisco-Ruiz-Ruiz,javilu
+        minimum-approvals: 1
+        issue-title: "Confirmar produccion"
+        issue-body: "Confirmar manualmente tras realizar los test pertinentes que la apliccaion puede pasar a produccion"
+        exclude-workflow-initiator-as-approver: false
+        additional-approved-words: 'aprobado'
+        additional-denied-words: 'denegado'
+  
+  deploy_production:
+    needs: manual_approval
+    runs-on: ubuntu-latest
+    steps:
+    - name: Instalar SSH Key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
+        known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+        
+    - name: Despliegue por SSH
+      uses: nekiro/ssh-job@main
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
+        user: ${{ secrets.REMOTE_USER }}
+        port: 9014
+        command: |
+          bash -c 'if [ -d "/home/prod/produccion/202324asir-junio-DOCKERS_DEVOPS-javilu/.git" ]; then cd /home/prod/produccion/202324asir-junio-DOCKERS_DEVOPS-javilu && git config --global --add safe.directory /home/prod/produccion/202324asir-junio-DOCKERS_DEVOPS-javilu && git pull origin main; else cd /home/prod/produccion && git clone git@github.com:iesgrancapitan-proyectos/202324asir-junio-DOCKERS_DEVOPS-javilu.git; fi'
+          cd /home/prod/produccion/202324asir-junio-DOCKERS_DEVOPS-javilu/lastversion
+          npm install
+          cd /home/prod/produccion/202324asir-junio-DOCKERS_DEVOPS-javilu
+          docker-compose down --volumes --remove-orphans || true
+          fuser -k 25/tcp || true
+          docker-compose up --build -d
+          docker-compose logs
