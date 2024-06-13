@@ -68,7 +68,9 @@ jobs:
       run: docker-compose logs
 
     - name: Limpiar
-      run: docker-compose down
+      run: |
+        cd /home/runner/work/202324daw-junio-libreria-andrea-andres/202324asir-junio-DOCKERS_DEVOPS-javilu
+        docker-compose down
 
   manual_approval:
     needs: build_and_test
