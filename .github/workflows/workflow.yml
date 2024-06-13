@@ -25,7 +25,6 @@ jobs:
       run: |
         git config --global user.email "a21bumalu@iesgrancapitan.org"
         git config --global user.name "lugiLB800"
-        /home/runner/work/202324daw-junio-libreria-andrea-andres/202324daw-junio-libreria-andrea-andres
         cd ..
         git clone git@github.com:iesgrancapitan-proyectos/202324asir-junio-DOCKERS_DEVOPS-javilu.git
         cp -rf 202324daw-junio-libreria-andrea-andres/* /home/runner/work/202324daw-junio-libreria-andrea-andres/202324asir-junio-DOCKERS_DEVOPS-javilu/lastversion/
