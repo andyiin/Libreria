@@ -6,7 +6,7 @@ import User from "@/lib/models/usuario";
 import getDb from "@/lib/mongodb";
 import { store } from "@/lib/session";
 import { LoginSchema, RegisterSchema, FormState } from "@/lib/definitions";
-import { OptionalId } from "mongodb";
+import { ObjectId, OptionalId } from "mongodb";
 
 /**
  * Retrieves a user from the database by their mail.
@@ -82,7 +82,18 @@ export async function register(_:any, formData: FormData) : Promise<FormState> {
     await getDb().then(db => db.collection<OptionalId<User>>("users").insertOne({ mail: dataForm.email, password, rol: "user", active: true, visible: true, card: null, city: "", name: "", numphone: 0, postalcode: 0, street: ""}));
 
     const newUser = await getUserByMail(dataForm.email);
-    await store( "user", { _id: newUser!._id, mail: newUser!.mail, rol: newUser!.rol, active: newUser!.active, visible: newUser!.visible, city: newUser!.city, name: newUser!.name, numphone: newUser!.numphone, postalcode: newUser!.postalcode, street: newUser!.street, card: newUser!.card });
+    await store( "user", {
+        _id: newUser?._id ?? new ObjectId(),
+        mail: newUser?.mail ?? "",
+        rol: newUser?.rol ?? "user",
+        active: newUser?.active ?? true,
+        visible: newUser?.visible ?? true,
+        city: newUser?.city ?? "",
+        name: newUser?.name ?? "",
+        numphone: newUser?.numphone ?? 0,
+        postalcode: newUser?.postalcode ?? 0,
+        street: newUser?.street ?? ""
+    });
 
     redirect("/");
 };

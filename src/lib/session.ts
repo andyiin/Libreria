@@ -87,13 +87,17 @@ export async function deleteCookie<Field extends CookieTypeField>(name: Field) {
     cookies().delete(name);
 };
 
+/**
+ * Saves the order in the database.
+ * @param form - The order form data.
+ */
 export async function saveOrder(form: any) {
     const db = await getDb();
     const collection = db.collection("orders");
     const order = {
         user: form.user,
         name: form.name.trim(),
-        totalprice: form.cart.reduce((acc: number, item: any) => acc + parseFloat(item.price) * item.quantity, 0),
+        totalprice: form.totalprice,
         email: form.email,
         numphone: form.phone,
         address: form.street,

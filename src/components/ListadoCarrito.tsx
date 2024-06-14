@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { retrieveCart } from "@/lib/cart";
+import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
+import { saveOrder } from "@/lib/session";
+import { retrieveCart, deleteCart } from "@/lib/cart";
 import UsuarioModel from "@/lib/models/usuario";
 import { ShippingSchema, CardSchema } from "@/lib/definitions";
 import DeleteCart from "@/components/DeleteCart";
@@ -10,18 +12,16 @@ import IncreaseQuantityCart from "@/components/IncreaseQuantityCart";
 import DecreaseQuantityCart from "@/components/DecreaseQuantityCart";
 import {
     AlertDialog,
-    AlertDialogTrigger,
     AlertDialogContent,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogDescription,
     AlertDialogFooter,
-    AlertDialogCancel,
     AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-import { saveOrder } from "@/lib/session";
 
 export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
+    const router = useRouter();
     const [form, setForm] = useState({
         name: user?.name || "",
         email: user?.mail || "",
@@ -34,10 +34,12 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
         cardExpiry: "",
         cardCVV: ""
     });
+
     const [errors, setErrors] = useState<any>({});
     const [state, setState] = useState(0);
     const cart = useMemo(() => retrieveCart(), [state]);
-
+    const [modalContent, setModalContent] = useState({ title: "", description: "" });
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -76,14 +78,26 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
         setErrors({});
 
         try {
-            // TODO borrar carrito
-            
             await saveOrder({ ...form, cart, user: user._id });
-            alert("Compra realizada con éxito!");
+            deleteCart();
+            setModalContent({
+                title: "Compra realizada con éxito!",
+                description: "Tu compra se ha realizado con éxito. Gracias por tu pedido."
+            });
+            setIsDialogOpen(true);
         } catch (error) {
             console.error("Error al guardar la orden:", error);
-            alert("Hubo un error al realizar la compra. Inténtalo nuevamente.");
+            setModalContent({
+                title: "Error al realizar la compra",
+                description: "Hubo un error al realizar la compra. Inténtalo nuevamente."
+            });
+            setIsDialogOpen(true);
         }
+    };
+
+    const handleDialogAction = () => {
+        setIsDialogOpen(false);
+        router.push("/");
     };
 
     return (
@@ -177,7 +191,6 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                             type="text"
                             name="cardHolder"
                             className="form-input mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-2"
-                            value={form.cardHolder}
                             onChange={handleChange}
                         />
                         {errors.cardname && <p className="text-red-600 font-bold">{errors.cardname}</p>}
@@ -242,6 +255,20 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                     Total: {Intl.NumberFormat(undefined, { currency: 'EUR', style: 'currency' }).format(cart?.totalPrice ?? 0)}
                 </h2>
             </div>
+
+            <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>{modalContent.title}</AlertDialogTitle>
+                        <AlertDialogDescription>{modalContent.description}</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogAction onClick={handleDialogAction}>
+                            Aceptar
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 };

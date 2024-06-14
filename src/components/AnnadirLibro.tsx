@@ -23,10 +23,10 @@ export default function AnnadirLibro(props: { libro: WithId<LibroModel> }) {
                 <button
                     className="mt-2 mx-4 px-4 py-2 rounded bg-indigo-800 hover:bg-indigo-900 text-zinc-300 text-lg transition duration-300"
                     onClick={async () => {
-                        await storeInCart({
+                        storeInCart({
                             _id: props.libro._id,
                             name: props.libro.name,
-                            price: parseFloat(props.libro.price),
+                            price: parseFloat(props.libro.price.toString()),
                             quantity: 1,
                         });
                     }}

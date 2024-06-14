@@ -37,7 +37,7 @@ async function updatePerfil(formData: FormData) {
     }
 
     // Verificar la contraseña actual
-    const isValid = await bcrypt.compare(currentPassword, user.password);
+    const isValid = currentPassword ? await bcrypt.compare(currentPassword, user.password) : false;
     if (!isValid) {
         throw new Error("La contraseña actual es incorrecta");
     }
