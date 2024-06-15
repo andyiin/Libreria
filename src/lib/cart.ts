@@ -10,9 +10,9 @@ export function deleteItemFromCart(id: string) {
     if (!cart) throw Error("unreacheable");
 
     cart.products = cart?.products.filter((item: any) => item._id !== id);
-    cart.totalPrice = calculateTotalPrice(cart.products)
-    
-    localStorage.setItem("cart", JSON.stringify(cart))
+    cart.totalPrice = calculateTotalPrice(cart.products);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
 };
     
     

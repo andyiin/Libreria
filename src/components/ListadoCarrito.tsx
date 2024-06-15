@@ -81,12 +81,11 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
             await saveOrder({ ...form, cart, user: user._id });
             deleteCart();
             setModalContent({
-                title: "Compra realizada con éxito!",
+                title: "¡Compra realizada con éxito!",
                 description: "Tu compra se ha realizado con éxito. Gracias por tu pedido."
             });
             setIsDialogOpen(true);
         } catch (error) {
-            console.error("Error al guardar la orden:", error);
             setModalContent({
                 title: "Error al realizar la compra",
                 description: "Hubo un error al realizar la compra. Inténtalo nuevamente."
@@ -97,7 +96,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
 
     const handleDialogAction = () => {
         setIsDialogOpen(false);
-        router.push("/");
+        // router.push("/");
     };
 
     return (

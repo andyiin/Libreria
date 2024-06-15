@@ -3,14 +3,14 @@
 import { Dispatch, FormEventHandler, SetStateAction } from "react";
 import Image from "next/image";
 import { deleteItemFromCart } from "@/lib/cart";
-import { redirect } from "next/navigation";
 
 export default function DeleteItemFromCart({ id, stateChanged }: { id: string; stateChanged: Dispatch<SetStateAction<number>> }) {
     const submitHandler: FormEventHandler = (event) => {
         event.preventDefault();
         deleteItemFromCart(id);
-        redirect("/");
+        stateChanged(d => ++d);
     };
+
     return (
         <form onSubmit={submitHandler} className="text-center">
             <input type="hidden" value={id} name="id"/>

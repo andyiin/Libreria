@@ -4,11 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { InfoUser } from "@/lib/models/usuario";
 import Menu from "@/components/MenuLogged";
-import { retrieveCart } from "@/lib/cart";
 
 export default function Encabezado(props: { user: InfoUser | undefined }) {
-    const cart = retrieveCart();
-
     return (
         <header className="flex items-center justify-between px-4 py-2 bg-gray-200 text-gray-800">
             <div>

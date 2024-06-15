@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { deleteCart } from "@/lib/cart";
+import { redirect } from "next/navigation";
 
 export default function DeleteCart({ stateChange }: { stateChange: Dispatch<SetStateAction<number>> }) {
     return (
@@ -10,6 +11,7 @@ export default function DeleteCart({ stateChange }: { stateChange: Dispatch<SetS
             event.preventDefault();
             deleteCart();
             stateChange(d => ++d);
+            redirect("/");
         } } className="text-center inline-block">
             <button
                 className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
