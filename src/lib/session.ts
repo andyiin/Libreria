@@ -4,6 +4,7 @@ import "server-only";
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import { InfoUser } from "./models/usuario";
+import getDb from "@/lib/mongodb"
 
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
@@ -90,28 +91,26 @@ export async function deleteCookie<Field extends CookieTypeField>(name: Field) {
  * Saves the order in the database.
  * @param form - The order form data.
  */
-export async function saveOrder(form: any) {
-    console.log("Saving order:", form);
-    
-    // const db = await getDb();
-    // const collection = db.collection("orders");
-    // const order = {
-    //     user: form.user,
-    //     name: form.name.trim(),
-    //     totalprice: form.totalprice,
-    //     email: form.email,
-    //     numphone: form.phone,
-    //     address: form.street,
-    //     city: form.city,
-    //     postalcode: form.postalcode,
-    //     date: new Date(),
-    //     state: "Pendiente",
-    //     products: form.cart
-    // };
-    // await collection.insertOne(order);
+export async function saveOrder(form: any) { 
+    const db = await getDb();
+    const collection = db.collection("orders");
+    const order = {
+        user: form.user,
+        name: form.name.trim(),
+        totalprice: form.totalprice,
+        email: form.email,
+        numphone: form.phone,
+        address: form.street,
+        city: form.city,
+        postalcode: form.postalcode,
+        date: new Date(),
+        state: "Pendiente",
+        products: form.cart
+    };
+    await collection.insertOne(order);
 
-    // const productsCollection = db.collection("products");
-    // form.cart.forEach(async (item: any) => {
-    //     await productsCollection.updateOne({ _id: item._id }, { $inc: { stock: -item.quantity } });
-    // });
+    const productsCollection = db.collection("products");
+    form.cart.forEach(async (item: any) => {
+        await productsCollection.updateOne({ _id: item._id }, { $inc: { stock: -item.quantity } });
+    });
 };
