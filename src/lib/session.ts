@@ -97,7 +97,7 @@ export async function saveOrder(form: any) {
     const order = {
         user: form.user,
         name: form.name.trim(),
-        totalprice: form.totalprice,
+        totalprice: form.cart.totalPrice,
         email: form.email,
         numphone: form.phone,
         address: form.street,
