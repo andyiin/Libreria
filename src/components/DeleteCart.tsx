@@ -1,28 +1,30 @@
+"use client";
+
+import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
-import { deleteCart } from "@/lib/session";
+import { deleteCart } from "@/lib/cart";
 import { redirect } from "next/navigation";
 
-const action = async () => {
-    "use server";
-
-    deleteCart();
-    redirect("/");
-};
-
-export default function DeleteCart() {
+export default function DeleteCart({ stateChange }: { stateChange: Dispatch<SetStateAction<number>> }) {
     return (
-        <form action={action} className="text-center">
+        <form onSubmit={(event) => {
+            event.preventDefault();
+            deleteCart();
+            stateChange(d => ++d);
+            redirect("/");
+        } } className="text-center inline-block">
             <button
-                className="flex items-center justify-center w-50 block px-4 py-2 text-sm text-gray-700 bg-red hover:bg-gray-200"
+                className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
                 type="submit">
                 <Image
                     src="/trash.svg"
                     alt="Borrar carrito"
-                    width={30}
-                    height={30}            
+                    width={20}
+                    height={20}
+                    className="w-6 h-6"
                 />
-                Borrar carrito
+                <span className="ml-2">Vaciar carrito</span>
             </button>
         </form>
     );
-};
+}

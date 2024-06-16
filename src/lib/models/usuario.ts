@@ -1,12 +1,5 @@
 import { ObjectId } from "mongodb";
 
-export type CardType = {
-    cardnumber: number,
-    cardname: string,
-    carddate: string,
-    cardcvv: number
-};
-
 export default interface Usuario {
     _id: ObjectId;
     mail: string;
@@ -18,8 +11,7 @@ export default interface Usuario {
     street: string,
     numphone: number,
     city: string,
-    postalcode: number,
-    card: CardType | null
+    postalcode: number
 };
 
 export type InfoUser = Omit<Usuario, "password">;

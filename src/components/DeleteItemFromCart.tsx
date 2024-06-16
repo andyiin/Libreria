@@ -1,25 +1,28 @@
+"use client";
+
+import { Dispatch, FormEventHandler, SetStateAction } from "react";
 import Image from "next/image";
-import { deleteItemFromCart } from "@/lib/session";
+import { deleteItemFromCart } from "@/lib/cart";
 
-export default function DeleteItemFromCart({ id }: { id: string }) {
-    const action = async () => {
-        "use server";
-
+export default function DeleteItemFromCart({ id, stateChanged }: { id: string; stateChanged: Dispatch<SetStateAction<number>> }) {
+    const submitHandler: FormEventHandler = (event) => {
+        event.preventDefault();
         deleteItemFromCart(id);
+        stateChanged(d => ++d);
     };
 
     return (
-        <form action={action} className="text-center">
+        <form onSubmit={submitHandler} className="text-center">
+            <input type="hidden" value={id} name="id"/>
             <button
-                className="flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                className="flex items-center justify-center w-10 h-10 bg-red-500 hover:bg-red-700 text-white font-bold rounded cursor-pointer"
                 type="submit">
                 <Image
                     src="/trash.svg"
                     alt="Borrar producto"
-                    width={30}
-                    height={30}
+                    width={20}
+                    height={20}
                 />
-                Borrar producto
             </button>
         </form>
     );

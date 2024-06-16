@@ -28,7 +28,6 @@ export const Paginacion = () => {
             <ListaDeLibros libros={libros} />
             <div className="flex flex-col items-center justify-center pb-6">
                 <div className="flex flex-row items-center justify-center pb-4">
-                    {/* solo sale anterior y siguiente si es posible esas opciones */}
                     {currentPage > 1 && (
                         <button
                             className="bg-indigo-300 text-black py-2 px-4 mx-2 rounded hover:bg-indigo-400 transition duration-300"

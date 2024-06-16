@@ -17,7 +17,15 @@ async function getLibros(busqueda: string) {
         .sort({ publication: -1 })
         .toArray();
 
-    return libros;
+
+    const librosSerializables = libros.map((libro) => ({
+        ...libro,
+        _id: libro._id.toString(),
+        price: libro.price.toString(),
+        publication: libro.publication.toISOString(),
+    })) as unknown as Libro[];
+
+    return librosSerializables;
 }
 
 const Page = async ({

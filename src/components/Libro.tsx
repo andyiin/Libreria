@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { WithId } from "mongodb";
 import LibroModel from "@/lib/models/libro";
-import { storeInCart } from "@/lib/session";
+import { storeInCart } from "@/lib/cart";
 
 export default function Libro(props: { libro: WithId<LibroModel> }) {
     return (
@@ -32,10 +32,10 @@ export default function Libro(props: { libro: WithId<LibroModel> }) {
                     <button
                         className="rounded px-3 py-0.5 bg-indigo-800 hover:bg-indigo-900 text-zinc-300 transition duration-300"
                         onClick={async () => {
-                            await storeInCart({
+                            storeInCart({
                                 _id: props.libro._id,
                                 name: props.libro.name,
-                                price: props.libro.price,
+                                price: parseFloat(props.libro.price.toString()),
                                 quantity: 1
                             });
                         }}
