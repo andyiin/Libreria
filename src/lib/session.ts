@@ -108,9 +108,4 @@ export async function saveOrder(form: any) {
         products: form.cart
     };
     await collection.insertOne(order);
-
-    const productsCollection = db.collection("products");
-    form.cart.forEach(async (item: any) => {
-        await productsCollection.updateOne({ _id: item._id }, { $inc: { stock: -item.quantity } });
-    });
 };

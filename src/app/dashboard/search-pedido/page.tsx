@@ -19,7 +19,7 @@ async function getPedidos(busqueda: string) {
         ...pedido,
         _id: pedido._id.toString(),
         user: pedido.user.toString(),
-        totalprice: pedido.totalprice.toString(),
+        totalprice: pedido.totalprice,
     }));
 
     return pedidosSerializables as unknown as Pedido[];

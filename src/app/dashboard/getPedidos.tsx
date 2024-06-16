@@ -19,7 +19,7 @@ export async function getPedidos(page: number = 1, pedidosPerPage: number = 8, u
             ...pedido,
             _id: pedido._id.toString(),
             user: pedido.user.toString(),
-            totalprice: pedido.totalprice.toString(),
+            totalprice: pedido.totalprice
         }));
 
         return { pedidos: pedidosSerializables, totalPedidos };

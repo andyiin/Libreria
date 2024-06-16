@@ -96,7 +96,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
 
     const handleDialogAction = () => {
         setIsDialogOpen(false);
-        // router.push("/");
+        router.push("/");
     };
 
     return (
