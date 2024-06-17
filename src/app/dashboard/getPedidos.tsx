@@ -15,12 +15,12 @@ export async function getPedidos(page: number = 1, pedidosPerPage: number = 8, u
         .limit(pedidosPerPage)
         .toArray();
 
-        const pedidosSerializables = pedidos.map((pedido) => ({
-            ...pedido,
-            _id: pedido._id.toString(),
-            user: pedido.user.toString(),
-            totalprice: pedido.totalprice
-        }));
+    const pedidosSerializables = pedidos.map((pedido) => ({
+        ...pedido,
+        _id: pedido._id.toString(),
+        user: pedido.user.toString(),
+        totalprice: pedido.totalprice
+    }));
 
-        return { pedidos: pedidosSerializables, totalPedidos };
-}
+    return { pedidos: pedidosSerializables, totalPedidosUser: pedidos.length, totalPedidos: totalPedidos};
+};

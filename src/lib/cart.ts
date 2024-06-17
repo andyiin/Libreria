@@ -53,8 +53,6 @@ export function storeInCart(sessionData: Product) {
  * @param operation The operation to perform: 1 to increase, -1 to decrease.
  */
 export function editQuantityCart(id: string, operation: number) {
-    console.log(id);
-    
     const cart = retrieveCart();
     if (!cart) throw Error("unrecheable")
 

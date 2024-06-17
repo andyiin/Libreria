@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import { InfoUser } from "./models/usuario";
 import getDb from "@/lib/mongodb"
+import { Decimal128, Double, ObjectId } from "mongodb";
 
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
@@ -95,9 +96,9 @@ export async function saveOrder(form: any) {
     const db = await getDb();
     const collection = db.collection("orders");
     const order = {
-        user: form.user,
+        user: new ObjectId(form.user.toString()),
         name: form.name.trim(),
-        totalprice: form.cart.totalPrice,
+        totalprice: new Double(form.cart.totalPrice),
         email: form.email,
         numphone: form.phone,
         address: form.street,
@@ -105,7 +106,12 @@ export async function saveOrder(form: any) {
         postalcode: form.postalcode,
         date: new Date(),
         state: "Pendiente",
-        products: form.cart
+        products: form.cart.products.map((product: any) => ({
+            _id: new ObjectId(product._id.toString()),
+            name: product.name,
+            price: new Decimal128(product.price.toString()),
+            quantity: product.quantity
+        }))
     };
     await collection.insertOne(order);
 };

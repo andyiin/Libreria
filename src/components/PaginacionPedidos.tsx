@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { getPedidos } from "@/app/dashboard/getPedidos";
 import { ObjectId, WithId } from "mongodb";
 import Pedido from "@/lib/models/pedido";
-import ListaPedido from "./ListaPedido";
+import ListaPedido from "@/components/ListaPedido";
 
 export const PaginacionPedidos = (props: {
     userId? : ObjectId;
@@ -15,12 +15,12 @@ export const PaginacionPedidos = (props: {
 
     useEffect(() => {
         const fetchPedidos = async () => {
-            const { pedidos: fetchedPedidos, totalPedidos } = await getPedidos(
+            const { pedidos: fetchedPedidos, totalPedidosUser } = await getPedidos(
                 currentPage,
                 pedidosPerPage, props.userId
             );
             setPedidos(fetchedPedidos);
-            setTotalPages(Math.ceil(totalPedidos / pedidosPerPage));
+            setTotalPages(Math.ceil(totalPedidosUser / pedidosPerPage));
         };
         fetchPedidos();
     }, [currentPage, props.userId]);

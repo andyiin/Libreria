@@ -23,7 +23,7 @@ async function getPedidos(busqueda: string) {
     }));
 
     return pedidosSerializables as unknown as Pedido[];
-}
+};
 
 const Page = async ({
     searchParams,

@@ -47,7 +47,7 @@ export default function PedidoDetallado(props: {
                     </li>
                     <li className="mb-2">
                         <b>Total: </b>
-                        {+props.pedido.totalprice}€
+                        {Intl.NumberFormat(undefined, { currency: "EUR", style: "currency" }).format(+props.pedido.totalprice ?? 0)}
                     </li>
                 </ul>
                 <h1 className="text-2xl font-bold mb-2 text-indigo-800">

@@ -1,7 +1,7 @@
 "use client";
 import PedidoModel from "@/lib/models/pedido";
 import { WithId } from "mongodb";
-import PedidoDetallado from "./PedidoDetallado";
+import PedidoDetallado from "@/components/PedidoDetallado";
 
 export default function ListaPedido(props: { pedidos: WithId<PedidoModel>[] }) {
     return (

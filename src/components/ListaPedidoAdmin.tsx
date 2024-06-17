@@ -1,9 +1,9 @@
 "use client";
 import PedidoModel from "@/lib/models/pedido";
 import { WithId } from "mongodb";
-import PedidoDetalladoAdmin from "./PedidoDetalladoAdmin";
+import PedidoDetalladoAdmin from "@/components/PedidoDetalladoAdmin";
 
-export default function ListaPedidoAdmin(props: { pedidos: WithId<PedidoModel>[] }) {
+export default function ListaPedidoAdmin(props: { pedidos: WithId<PedidoModel>[] }) {   
     return (
         <div>
             <ul className="flex flex-wrap justify-around gap-16 py-10 px-20">
