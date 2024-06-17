@@ -36,13 +36,15 @@ export default function PedidoDetallado(props: {
                     <li className="mb-2">
                         <b>Productos: </b>
                         <ul className="mt-2 list-disc list-inside">
-                            {props.pedido.products.map((product, index) => (
-                                <>
-                                    <li key={index}>
-                                        {product.name} (ud: {product.quantity})
-                                    </li>
-                                </>
-                            ))}
+                            {Array.isArray(props.pedido.products) &&
+                                props.pedido.products.map((product, index) => (
+                                    <>
+                                        <li key={index}>
+                                            {product.name} (ud:{" "}
+                                            {product.quantity})
+                                        </li>
+                                    </>
+                                ))}
                         </ul>
                     </li>
                     <li className="mb-2">

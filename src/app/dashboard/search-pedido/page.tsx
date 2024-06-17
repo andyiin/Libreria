@@ -1,5 +1,6 @@
 import BuscadorPedidos from "@/components/BuscadorPedidos";
 import ListaPedido from "@/components/ListaPedido";
+import ListaPedidoAdmin from "@/components/ListaPedidoAdmin";
 import Pedido from "@/lib/models/pedido";
 import getDb from "@/lib/mongodb";
 
@@ -13,6 +14,7 @@ async function getPedidos(busqueda: string) {
                 { name: { $regex: busqueda, $options: "i" } },
             ],
         })
+        .sort({ date: -1 })
         .toArray();
 
     const pedidosSerializables = pedidos.map((pedido) => ({
@@ -20,9 +22,9 @@ async function getPedidos(busqueda: string) {
         _id: pedido._id.toString(),
         user: pedido.user.toString(),
         totalprice: pedido.totalprice,
-    }));
+    })) as unknown as Pedido[];
 
-    return pedidosSerializables as unknown as Pedido[];
+    return pedidosSerializables;
 };
 
 const Page = async ({
@@ -43,7 +45,7 @@ const Page = async ({
                 </div>
             </div>
             <div className="bg-zinc-300 text-black min-h-screen">
-                <ListaPedido pedidos={pedidos} />
+                <ListaPedidoAdmin pedidos={pedidos} />
             </div>
         </>
     );
