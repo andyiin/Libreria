@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 async function buscar(formData: FormData) {
     "use server";
     const busqueda = formData.get("buscador");
-    redirect(`./dashboard/search?busqueda=${busqueda}`);
+    redirect(`/dashboard/search?busqueda=${busqueda}`);
 }
 
 export default function BuscadorUsuarios() {
@@ -17,7 +17,7 @@ export default function BuscadorUsuarios() {
             />
             <button 
                 className="bg-indigo-800 hover:bg-indigo-900 text-white ml-2 p-2 rounded-xl transition duration-300"
-                onClick={buscar}
+                type="submit"
                 >
                 Buscar
             </button>
