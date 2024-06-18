@@ -18,6 +18,7 @@ import {
     AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogAction,
+    AlertDialogCancel
 } from "@/components/ui/alert-dialog";
 
 export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
@@ -40,6 +41,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
     const cart = useMemo(() => retrieveCart(), [state]);
     const [modalContent, setModalContent] = useState({ title: "", description: "" });
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -48,6 +50,15 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!user) {
+            setModalContent({
+                title: "Cuenta necesaria",
+                description: "Puedes crear un cuenta si no la tienes o iniciar sesión."
+            });
+            setIsLoginModalOpen(true);
+            return;
+        };
 
         const shippingValidation = ShippingSchema.safeParse({
             name: form.name,
@@ -61,7 +72,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
         if (!shippingValidation.success) {
             setErrors(shippingValidation.error.flatten().fieldErrors);
             return;
-        }
+        };
 
         const cardValidation = CardSchema.safeParse({
             cardname: form.cardHolder,
@@ -73,7 +84,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
         if (!cardValidation.success) {
             setErrors(cardValidation.error.flatten().fieldErrors);
             return;
-        }
+        };
 
         setErrors({});
 
@@ -91,12 +102,17 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                 description: "Hubo un error al realizar la compra. Inténtalo nuevamente."
             });
             setIsDialogOpen(true);
-        }
+        };
     };
 
     const handleDialogAction = () => {
         setIsDialogOpen(false);
         router.push("/");
+    };
+
+    const handleLoginModalAction = (path: string) => {
+        setIsLoginModalOpen(false);
+        router.push(path);
     };
 
     return (
@@ -264,6 +280,23 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                     <AlertDialogFooter>
                         <AlertDialogAction onClick={handleDialogAction}>
                             Aceptar
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>{modalContent.title}</AlertDialogTitle>
+                        <AlertDialogDescription>{modalContent.description}</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel onClick={() => handleLoginModalAction("/register")}>
+                            Registrarse
+                        </AlertDialogCancel>
+                        <AlertDialogAction onClick={() => handleLoginModalAction("/login")}>
+                            Iniciar sesión
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
