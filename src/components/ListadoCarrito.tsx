@@ -18,6 +18,7 @@ import {
     AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogAction,
+    AlertDialogCancel
 } from "@/components/ui/alert-dialog";
 
 export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
@@ -40,6 +41,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
     const cart = useMemo(() => retrieveCart(), [state]);
     const [modalContent, setModalContent] = useState({ title: "", description: "" });
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -48,6 +50,15 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!user) {
+            setModalContent({
+                title: "Cuenta necesaria",
+                description: "Puedes crear un cuenta si no la tienes o iniciar sesión."
+            });
+            setIsLoginModalOpen(true);
+            return;
+        };
 
         const shippingValidation = ShippingSchema.safeParse({
             name: form.name,
@@ -61,7 +72,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
         if (!shippingValidation.success) {
             setErrors(shippingValidation.error.flatten().fieldErrors);
             return;
-        }
+        };
 
         const cardValidation = CardSchema.safeParse({
             cardname: form.cardHolder,
@@ -73,7 +84,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
         if (!cardValidation.success) {
             setErrors(cardValidation.error.flatten().fieldErrors);
             return;
-        }
+        };
 
         setErrors({});
 
@@ -91,12 +102,17 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                 description: "Hubo un error al realizar la compra. Inténtalo nuevamente."
             });
             setIsDialogOpen(true);
-        }
+        };
     };
 
     const handleDialogAction = () => {
         setIsDialogOpen(false);
         router.push("/");
+    };
+
+    const handleLoginModalAction = (path: string) => {
+        setIsLoginModalOpen(false);
+        router.push(path);
     };
 
     return (
@@ -179,6 +195,8 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                             type="text"
                             name="cardNumber"
                             className="form-input mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-2"
+                            maxLength={19}
+                            placeholder="1111 2222 3333 4444"
                             value={form.cardNumber}
                             onChange={handleChange}
                         />
@@ -190,6 +208,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                             type="text"
                             name="cardHolder"
                             className="form-input mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-2"
+                            placeholder="Nombre del titular"
                             onChange={handleChange}
                         />
                         {errors.cardname && <p className="text-red-600 font-bold">{errors.cardname}</p>}
@@ -201,6 +220,8 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                                 type="text"
                                 name="cardExpiry"
                                 className="form-input mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-2"
+                                placeholder="MM/YY"
+                                maxLength={5}
                                 value={form.cardExpiry}
                                 onChange={handleChange}
                             />
@@ -213,6 +234,8 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                                 name="cardCVV"
                                 className="form-input mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-2"
                                 value={form.cardCVV}
+                                maxLength={3}
+                                placeholder="123"
                                 onChange={handleChange}
                             />
                             {errors.cvv && <p className="text-red-600 font-bold">{errors.cvv}</p>}
@@ -230,6 +253,13 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
             <div className="lg:w-1/2 mt-8 lg:mt-0">
                 <h2 className="text-4xl text-indigo-800 font-bold pt-6 text-center lg:text-left">Carrito</h2>
                 <ul className="space-y-4 mt-6">
+
+                    {!cart?.products && (
+                        <li className="text-center text-2xl font-bold text-black-500">
+                            Tu carrito está vacío
+                        </li>
+                    )}
+
                     {cart?.products.map((product: any) => (
                         <li key={product._id} className="flex flex-col md:flex-row items-center justify-between bg-white p-4 rounded-lg shadow-md">
                             <div className="flex items-center space-x-4 flex-grow">
@@ -264,6 +294,23 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                     <AlertDialogFooter>
                         <AlertDialogAction onClick={handleDialogAction}>
                             Aceptar
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>{modalContent.title}</AlertDialogTitle>
+                        <AlertDialogDescription>{modalContent.description}</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel onClick={() => handleLoginModalAction("/register")}>
+                            Registrarse
+                        </AlertDialogCancel>
+                        <AlertDialogAction onClick={() => handleLoginModalAction("/login")}>
+                            Iniciar sesión
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

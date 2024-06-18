@@ -37,7 +37,7 @@ const Page = async ({
     return (
         <>
             <div className="flex justify-center bg-zinc-300 pt-6">
-                <Buscador />
+                <Buscador search={searchParams.busqueda} />
             </div>
             <div className="bg-zinc-300 text-black min-h-screen">
                 <ListaDeLibros libros={libros} />

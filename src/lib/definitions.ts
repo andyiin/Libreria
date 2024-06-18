@@ -22,7 +22,7 @@ export const ShippingSchema = z.object({
 
 export const CardSchema = z.object({
     cardname: z.string().min(3, { message: "Debe tener al menos 3 caracteres" }).trim(),
-    cardnumber: z.string().regex(/^\d{16}$/, { message: "Por favor introduzca un número de tarjeta válido" }).trim(),
+    cardnumber: z.string().trim().regex(/^\d{4}\s?\d{4}\s?\d{4}\s?\d{4}$/, { message: "Por favor introduzca un número de tarjeta válido" }),
     expdate: z.string().regex(/^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])$/, { message: "Por favor introduzca una fecha de expiración válida" }).trim(),
     cvv: z.string().regex(/^\d{3}$/, { message: "Por favor introduzca un CVV válido" }).trim(),
 });
