@@ -27,7 +27,7 @@ export default function UsuarioDetalladoAdmin(props: {
                     </li>
                     <li className="mb-2">
                         <b>Rol: </b>
-                        {props.usuario.rol === "admin" ? "Administrador" : "Usuario"}
+                        {props.usuario.rol === "admin" ? "Administrador" : "Cliente"}
                     </li>
                 </ul>
                 <h1 className="text-2xl font-bold mb-2 text-indigo-800">
