@@ -195,6 +195,8 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                             type="text"
                             name="cardNumber"
                             className="form-input mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-2"
+                            maxLength={19}
+                            placeholder="1111 2222 3333 4444"
                             value={form.cardNumber}
                             onChange={handleChange}
                         />
@@ -206,6 +208,7 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                             type="text"
                             name="cardHolder"
                             className="form-input mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-2"
+                            placeholder="Nombre del titular"
                             onChange={handleChange}
                         />
                         {errors.cardname && <p className="text-red-600 font-bold">{errors.cardname}</p>}
@@ -217,6 +220,8 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                                 type="text"
                                 name="cardExpiry"
                                 className="form-input mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-2"
+                                placeholder="MM/YY"
+                                maxLength={5}
                                 value={form.cardExpiry}
                                 onChange={handleChange}
                             />
@@ -229,6 +234,8 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
                                 name="cardCVV"
                                 className="form-input mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-2"
                                 value={form.cardCVV}
+                                maxLength={3}
+                                placeholder="123"
                                 onChange={handleChange}
                             />
                             {errors.cvv && <p className="text-red-600 font-bold">{errors.cvv}</p>}
