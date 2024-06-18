@@ -14,19 +14,31 @@ export default function EditarPerfil({
     onSubmit,
 }: EditarPerfilProps): JSX.Element {
     const [visible, setVisible] = useState<boolean>(perfil.visible);
+    const [numPhoneError, setNumPhoneError] = useState('');
+    const [postalCodeError, setPostalCodeError] = useState('');
 
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setVisible(e.target.checked);
     };
-    
+
     const handleNumPhoneInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value.slice(0, 9);
         event.target.value = value;
+        if (value.length < 9) {
+            setNumPhoneError('El número de teléfono debe tener al menos 9 dígitos');
+        } else {
+            setNumPhoneError('');
+        }
     };
 
     const handleCodePostalInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value.slice(0, 5);
         event.target.value = value;
+        if (value.length < 5) {
+            setPostalCodeError('El código postal debe tener 5 dígitos');
+        } else {
+            setPostalCodeError('');
+        }
     };
 
     const handleMailInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,6 +124,9 @@ export default function EditarPerfil({
                             className="w-full p-3 border border-gray-300 rounded mt-1"
                             onChange={handleNumPhoneInput}
                         />
+                        {numPhoneError && (
+                            <p className="text-red-500 text-sm">{numPhoneError}</p>
+                        )}
                     </div>
 
                     {/* Dirección */}
@@ -164,6 +179,9 @@ export default function EditarPerfil({
                             className="w-full p-3 border border-gray-300 rounded mt-1"
                             onChange={handleCodePostalInput}
                         />
+                        {postalCodeError && (
+                            <p className="text-red-500 text-sm">{postalCodeError}</p>
+                        )}
                     </div>
 
                     {/* Visibilidad */}
