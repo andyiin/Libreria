@@ -45,7 +45,7 @@ async function createLibro(formData: FormData) {
     };
 
     await db.collection("products").insertOne(data);
-    redirect("./");
+    redirect("/");
 }
 
 export default function Page() {
