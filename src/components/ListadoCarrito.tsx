@@ -246,6 +246,13 @@ export default function ListadoCarrito({ user }: { user: UsuarioModel }) {
             <div className="lg:w-1/2 mt-8 lg:mt-0">
                 <h2 className="text-4xl text-indigo-800 font-bold pt-6 text-center lg:text-left">Carrito</h2>
                 <ul className="space-y-4 mt-6">
+
+                    {!cart?.products && (
+                        <li className="text-center text-2xl font-bold text-black-500">
+                            Tu carrito está vacío
+                        </li>
+                    )}
+
                     {cart?.products.map((product: any) => (
                         <li key={product._id} className="flex flex-col md:flex-row items-center justify-between bg-white p-4 rounded-lg shadow-md">
                             <div className="flex items-center space-x-4 flex-grow">
