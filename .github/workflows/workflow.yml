@@ -1,5 +1,4 @@
-# PRUEBA COMMIT
-name: Deploy App with Docker Compose
+name: CI CD
 on:
   push:
     branches:
@@ -7,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_and_test:
+  preprod_deploy_test:
     runs-on: ubuntu-latest
     steps:
     - name: Descargar repositorio
@@ -71,7 +70,7 @@ jobs:
         docker-compose down
 
   manual_approval:
-    needs: build_and_test
+    needs: preprod_deploy_test
     runs-on: ubuntu-latest
     steps:
     - name: Esperar aprobacion manual
