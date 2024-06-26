@@ -44,7 +44,7 @@ export default function BorrarLibroBoton({ id, user }: BorrarLibroBotonProps) {
                                     await deleteLibro(id);
                                 }}
                             >
-                                <Link href="/">Borrar</Link>
+                                <Link href="../">Borrar</Link>
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
